@@ -9,7 +9,7 @@ description: "A report about Articulation Hackathon"
 featured: true
 #hidden: true
 #rating: 4.5
-comments: false
+comments: true
 ---
 
 A multidisciplinary hackathon by the [Articulations](https://labodanse.org/articulations/) team took place on November 14th and 15th, 2019 at CNRS in Paris, France, after [a two-day symposium at ENSAD](https://www.facebook.com/events/2467360340252026/). The focus of the hackathon is to experiment with Articulations, a virtual reality environment platform, and the participants were a mixed group of neuroscientists, designers, artists, dancers, anthropologists, engineers, and of course, people who have more than one profession.
