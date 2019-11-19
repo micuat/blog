@@ -18,7 +18,7 @@ The first day started with a movement session by [Clint Lutes](https://clintlute
 
 The map of the ideas was grouped into, for example, unbodiment, tracing, interactive installations, and distortion. We spent some time talking within the groups, and later we all came back together to present ideas. I was moving between two groups but ended up creating a VR environment filled with cats as a joke (but indeed it has a question of cats animating as autonomous agents and as sound sources in the virtual space).
 
-![Cat VR screenshot](/blog/assets/images/2019-11-15-catvr.png)
+![Cat VR screenshot]({{ site.baseurl }}/assets/images/2019-11-15-catvr.png)
 
 On the second day, Loup Vuarnesson from ENSAD gave a tutorial of Unity. We started from an empty scene and introduced a physics engine. Some of the enthusiastic participants started writing their own scripts in C#.
 
@@ -26,6 +26,6 @@ Then, we formed four new groups based on the projects from the first day: augmen
 
 With [Cristina Hoffmann](http://cristinahoffmann.com/), we created an embodied poetry experience by attaching words to the skeletal tracking of the body. By moving the body, the mover can literally shape the text into a new form. Currently, the vocabulary is fixed, but we can easily imagine showing random words or based on an algorithm.
 
-![Kinect with words](/blog/assets/images/2019-11-15-words.png)
+![Kinect with words]({{ site.baseurl }}/assets/images/2019-11-15-words.png)
 
 Other groups presented a VR environment reacting to heartrate, a concept of interactive sound installation, and a VR system with a tracked pico projector to reveal the virtual environment in the real space. The hackathon was exceptional that we spent more time on the ideation rather than coding. This format suits well to me as I usually bring tools (in this case, Kinect visualization integrated with Processing and Unity) to a hackathon and spend time to glue these tools together to realize the ideas instead of making a library from scratch. I would like to thank the Articulations team, especially Asaf Bachrach, for organizing the event and generously supporting us to participate in the event.
