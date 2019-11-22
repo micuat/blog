@@ -3,6 +3,7 @@ layout: post
 title:  "Bezier Font Study"
 author: naoto
 categories: [ sketch ]
+tags: [ p5js, typography ]
 image: assets/images/2017-12-15-Bezier-Font.png
 description: "A sketch"
 featured: true

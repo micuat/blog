@@ -3,12 +3,10 @@ layout: post
 title:  "Spectrogram Study 1"
 author: naoto
 categories: [ sketch ]
-#tags: [red, yellow]
+tags: [ p5js, sound ]
 image: assets/images/2019-11-21-spectrogram.png
 description: "A sketch"
 featured: true
-#hidden: true
-#rating: 4.5
 comments: true
 p5: true
 ---

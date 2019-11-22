@@ -3,6 +3,7 @@ layout: post
 title:  "Yellowtail"
 author: naoto
 categories: [ sketch ]
+tags: [ p5js, recode ]
 image: assets/images/2019-03-20-Yellowtail.png
 description: "A sketch"
 featured: true

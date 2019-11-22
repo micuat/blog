@@ -3,6 +3,7 @@ layout: post
 title:  "PCD Tokyo Background"
 author: naoto
 categories: [ sketch ]
+tags: [ p5js, PCD ]
 image: assets/images/2019-01-07-PCD-Tokyo-Background.png
 description: "A sketch"
 featured: true

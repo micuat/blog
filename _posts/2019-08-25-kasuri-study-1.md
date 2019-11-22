@@ -3,6 +3,7 @@ layout: post
 title:  "Kasuri Study 1"
 author: naoto
 categories: [ sketch ]
+tags: [ p5js, weaving ]
 image: assets/images/2019-08-25-Kasuri-Study.png
 description: "A sketch"
 featured: true

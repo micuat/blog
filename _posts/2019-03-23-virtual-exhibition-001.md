@@ -3,6 +3,7 @@ layout: post
 title:  "Virtual Exhibition 001"
 author: naoto
 categories: [ sketch ]
+tags: [ p5js, threejs, curation ]
 image: assets/images/2019-03-23-ve.png
 description: "Virtual exhibition"
 featured: true

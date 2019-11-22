@@ -3,6 +3,7 @@ layout: post
 title:  "Line Effect Study"
 author: naoto
 categories: [ sketch ]
+tags: [ p5js ]
 image: assets/images/2019-09-08-Line-Effect-Study.png
 description: "A sketch"
 featured: true

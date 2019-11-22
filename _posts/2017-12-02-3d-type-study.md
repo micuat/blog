@@ -3,6 +3,7 @@ layout: post
 title:  "3D Type Study"
 author: naoto
 categories: [ sketch ]
+tags: [ p5js, typography ]
 image: assets/images/2017-12-02-3D-Type-Study.png
 description: "A sketch"
 featured: true

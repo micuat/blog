@@ -3,6 +3,7 @@ layout: post
 title:  "Grid Study"
 author: naoto
 categories: [ sketch ]
+tags: [ p5js ]
 image: assets/images/2017-08-30-Grid-Study.png
 description: "A sketch"
 featured: true

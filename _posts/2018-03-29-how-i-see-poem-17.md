@@ -3,6 +3,7 @@ layout: post
 title:  "How I See Poem 17"
 author: naoto
 categories: [ sketch ]
+tags: [ p5js, poem ]
 image: assets/images/2018-03-29-How-I-See-Poem-17.png
 description: "A sketch"
 featured: true

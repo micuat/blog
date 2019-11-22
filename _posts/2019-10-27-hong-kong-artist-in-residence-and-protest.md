@@ -3,12 +3,10 @@ layout: post
 title:  "Hong Kong Artist-in-Residence and Protest"
 author: naoto
 categories: [ report ]
-#tags: [red, yellow]
+tags: [ essay ]
 image: assets/images/2019-10-27-admiralty.jpg
 description: "An essay about Hong Kong"
 featured: true
-#hidden: true
-#rating: 4.5
 comments: true
 ---
 

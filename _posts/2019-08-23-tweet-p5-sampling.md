@@ -3,6 +3,7 @@ layout: post
 title:  "Tweet P5 Sampling"
 author: naoto
 categories: [ sketch ]
+tags: [ p5js, tinysketch ]
 image: assets/images/2019-08-23-Tweet-P5-Sampling.png
 description: "A sketch"
 featured: true

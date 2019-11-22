@@ -3,6 +3,7 @@ layout: post
 title:  "Penguin Eyes"
 author: naoto
 categories: [ sketch ]
+tags: [ p5js ]
 image: assets/images/2017-11-11-penguin-eyes.png
 description: "A sketch"
 featured: true

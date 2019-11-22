@@ -3,12 +3,10 @@ layout: post
 title:  "Interaction of Color Study 1"
 author: naoto
 categories: [ sketch ]
-#tags: [red, yellow]
+tags: [ p5js, josefalbers ]
 image: assets/images/2019-11-20-color.png
 description: "A sketch"
 featured: true
-#hidden: true
-#rating: 4.5
 comments: true
 p5: true
 ---

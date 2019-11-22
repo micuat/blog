@@ -3,6 +3,7 @@ layout: post
 title:  "Tiny Sketch: Blobs"
 author: naoto
 categories: [ sketch ]
+tags: [ p5js, tinysketch ]
 image: assets/images/2019-03-09-Tiny-Sketch-Blobs.png
 description: "A sketch"
 featured: true

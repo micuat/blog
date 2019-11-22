@@ -3,6 +3,7 @@ layout: post
 title:  "Dead Reckoning"
 author: naoto
 categories: [ sketch ]
+tags: [ p5js ]
 image: assets/images/2019-06-17-Dead-Reckoning.png
 description: "A sketch"
 featured: true

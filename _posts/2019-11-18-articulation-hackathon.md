@@ -3,12 +3,10 @@ layout: post
 title:  "Articulation Hackathon"
 author: naoto
 categories: [ report ]
-#tags: [red, yellow]
+tags: [ essay ]
 image: assets/images/2019-11-15-articulation.png
 description: "A report about Articulation Hackathon"
 featured: true
-#hidden: true
-#rating: 4.5
 comments: true
 ---
 

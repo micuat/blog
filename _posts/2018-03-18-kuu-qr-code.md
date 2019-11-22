@@ -3,6 +3,7 @@ layout: post
 title:  "KUU QR Code"
 author: naoto
 categories: [ sketch ]
+tags: [ p5js, kuu ]
 image: assets/images/2018-03-18-KUU-QR-Code.png
 description: "A sketch"
 featured: true
