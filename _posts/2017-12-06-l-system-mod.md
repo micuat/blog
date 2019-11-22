@@ -3,7 +3,7 @@ layout: post
 title:  "L-System Mod"
 author: naoto
 categories: [ sketch ]
-image: assets/images/2017-12-06-l-system-mod.png  
+image: assets/images/2017-12-06-l-system-mod.png
 description: "A sketch"
 featured: true
 comments: true
@@ -64,7 +64,7 @@ function generate() {
 function draw() {
   turtle();
 }
-
+var count = 0;
 function turtle() {
   count = 0;
   background(51);
@@ -73,6 +73,7 @@ function turtle() {
   stroke(255, 100);
   fill(255, 50, 20);
   for (var i = 0; i < sentence.length; i++) {
+    count = i;
     var current = sentence.charAt(i);
 
     if (current == "F") {
@@ -82,7 +83,12 @@ function turtle() {
     } else if (current == "L") {
       drawLeaves(10);
     } else if (current == "A") {
+      push();
+  		var a = sin(millis() * 0.002 + count * 0.1);
+		  rotate(a * PI / 6);
+      translate(0, 5);
       ellipse(0, 0, 10, 10);
+      pop();
     } else if (current == "+") {
       rotate(angle);
     } else if (current == "-") {
@@ -97,12 +103,13 @@ function turtle() {
 
 function drawLeaves(s) {
   push();
-  rotate(PI / 6);
+  var a = sin(millis() * 0.004 + count * 0.1);
+  rotate(a * PI / 6);
   drawLeaf(s);
   pop();
   push();
   scale(-1, 1);
-  rotate(PI / 6);
+  rotate(a * PI / 6);
   drawLeaf(s);
   pop();
 }
@@ -128,7 +135,7 @@ function drawLeaf(s) {
 
 function setup() {
   createCanvas(400, 400).parent("p5sketch");
-  // treeTexture = createImg("https://slm-assets3.secondlife.com/assets/9454832/lightbox/bark__1__seamless__mp.jpg?1396417476", "treeTexture");
+  //treeTexture = createImg("https://slm-assets3.secondlife.com/assets/9454832/lightbox/bark__1__seamless__mp.jpg?1396417476", "treeTexture");
   var allImages = document.getElementsByTagName("img");
   var images = [];
   for (var i = 0, len = allImages.length; i < len; ++i) {
@@ -142,7 +149,6 @@ function setup() {
   createP(axiom).parent("p5sketch");
   turtle();
   var button = createButton("generate");
-  button.mousePressed(generate);
-  button.parent("p5sketch");
+  button.mousePressed(generate).parent("p5sketch");
 }
 </script>
