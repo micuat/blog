@@ -4,7 +4,7 @@ title:  "RIDM Festival Performance"
 author: naoto
 categories: [ sketch ]
 tags: [ p5js, josefalbers ]
-image: assets/images/2018-02-21-RIDM-Festival-Performance.png
+image: assets/images/2017-11-14-RIDM-Festival-Performance.png
 description: "A sketch"
 featured: true
 comments: true
