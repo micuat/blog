@@ -3,7 +3,7 @@ layout: post
 title:  "RIDM Festival Performance"
 author: naoto
 categories: [ sketch ]
-tags: [ p5js, josefalbers ]
+tags: [ p5js, performance ]
 image: assets/images/2017-11-14-RIDM-Festival-Performance.png
 description: "A sketch"
 featured: true
