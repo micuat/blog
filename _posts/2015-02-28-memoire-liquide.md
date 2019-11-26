@@ -3,7 +3,7 @@ layout: post
 title:  "Mémoire Liquide"
 author: naoto
 categories: [ project ]
-tags: [ installation ]
+tags: [ installation, openframeworks, unity3d ]
 image: assets/images/2015-02-28-memoire-liquide.jpg
 description: "Mémoire Liquide"
 featured: true
