@@ -3,7 +3,7 @@ layout: post
 title:  "Creative Code Köln Meetup 1"
 author: naoto
 categories: [ report ]
-tags: [ essay ]
+tags: [ essay, cck ]
 image: assets/images/2019-11-28-cck-meetup.jpg
 description: "A report about CCK meetup"
 featured: true
