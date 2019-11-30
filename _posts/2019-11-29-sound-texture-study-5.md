@@ -71,14 +71,21 @@ function setColor(parent, func, index, alpha) {
 }
 
 class Rhythm {
-  constructor({length, freq, generate, execute}) {
+  constructor({length, freq, generate, execute, generateDelay}) {
     this.generate = generate;
+    this.generateDelay = generateDelay;
     this.execute = execute;
 
     this.length = length;
     this.queue = [];
     for(let i = 0; i < length; i++) {
       this.queue[i] = this.generate();
+    }
+    if(this.generateDelay != undefined) {
+      this.queueDelay = [];
+      for(let i = 0; i < length; i++) {
+        this.queueDelay[i] = this.generateDelay();
+      }
     }
     this.freq = freq;
 
@@ -89,8 +96,9 @@ class Rhythm {
   
   update({t}) {
     const freq = this.freq;
+    const delay = this.generateDelay != undefined ? this.queueDelay[this.count] / freq : 0;
     if (Math.floor(t * freq) - Math.floor(this.lastT * freq)) {
-      this.execute(this.queue[this.count]);
+      this.execute(this.queue[this.count], delay);
       this.count = (this.count + 1) % this.length;
       if (this.count == 0) {
         this.bigCount = (this.bigCount + 1) % 4;
@@ -102,10 +110,6 @@ class Rhythm {
     }
     this.lastT = t;
   }
-  
-  // getPhase({t}) {
-  //   return t * this.freq - Math.floor(this.lastT * this.freq);
-  // }
 }
 
 const s = (p) => {
@@ -131,10 +135,13 @@ const s = (p) => {
     generate: () => {
       return Math.random() > 0.5;
     },
-    execute: (a) => {
+    generateDelay: () => {
+      return Math.random() > 0.5 ? 0 : 0.25;
+    },
+    execute: (a, delay) => {
       changedl = false;
       if(a) {
-        nodes.pulsel.play(0);
+        nodes.pulsel.play(delay);
         posl = (posl + 1) % 4;
         changedl = true;
       }
@@ -145,10 +152,13 @@ const s = (p) => {
     generate: () => {
       return Math.random() > 0.5;
     },
-    execute: (a) => {
+    generateDelay: () => {
+      return Math.random() > 0.5 ? 0 : 0.25;
+    },
+    execute: (a, delay) => {
       changedh = false;
       if(a) {
-        nodes.pulseh.play(0);
+        nodes.pulseh.play(delay);
         posh = (posh + 1) % 4;
         changedh = true;
       }
@@ -159,7 +169,7 @@ const s = (p) => {
   let lastPosl = 0;
   let lastPosh = 0;
   let changedl = false;
-  let changedr = false;
+  let changedh = false;
   p.draw = () => {
     const t = p.millis() * 0.001;
     if (playing) {
@@ -172,33 +182,28 @@ const s = (p) => {
     p.noStroke();
     p.rectMode(p.CENTER);
     p.translate(p.width / 2, p.height / 2);
-    if(playing) {
-      let W = p.width / 2;
-      let w = W / 2;
+
+    let W = p.width / 2;
+    let w = W / 2;
       
-      setColor(p, 'fill', 4)
-      p.rect(0, 0, W, W);
+    setColor(p, 'fill', 4)
+    p.rect(0, 0, W, W);
 
-      let x = Math.min(1, (t * rl.freq % 1) * 2) * (p.width - w);
-      if(!changedl) x = p.width - w;
-      setColor(p, 'fill', 3)
-      p.push();
-      // if(changedl) 
-        p.rotate((posl) * Math.PI / 2);
-      // else p.rotate((posl+1) * Math.PI / 2);
-      p.rect(x - W / 2 - w / 2, -w / 2 - W / 2, w, w);
-      p.pop();
+    let x = Math.min(1, (t * rl.freq % 1) * 2) * (p.width - w);
+    if(!changedl) x = p.width - w;
+    setColor(p, 'fill', 3)
+    p.push();
+    p.rotate((posl) * Math.PI / 2);
+    p.rect(x - W / 2 - w / 2, -w / 2 - W / 2, w, w);
+    p.pop();
 
-      x = Math.min(1, (t * rh.freq % 1) * 2) * (p.width - w);
-      if(!changedh) x = p.width - w;
-      setColor(p, 'fill', 1)
-      p.push();
-      // if(changedl) 
-        p.rotate((posh + 2) * Math.PI / 2);
-      // else p.rotate((posh + 3) * Math.PI / 2);
-      p.rect(x - W / 2 - w / 2, -w / 2 - W / 2, w, w);
-      p.pop();
-    }
+    x = Math.min(1, (t * rh.freq % 1) * 2) * (p.width - w);
+    if(!changedh) x = p.width - w;
+    setColor(p, 'fill', 1)
+    p.push();
+    p.rotate((posh + 2) * Math.PI / 2);
+    p.rect(x - W / 2 - w / 2, -w / 2 - W / 2, w, w);
+    p.pop();
   }
 
   p.mousePressed = () => {
