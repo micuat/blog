@@ -70,85 +70,101 @@ function setColor(parent, func, index, alpha) {
   parent[func](colorSchemes[0].get(index).r, colorSchemes[0].get(index).g, colorSchemes[0].get(index).b, alpha);
 }
 
+class Rhythm {
+  constructor({length, freq, generate, execute}) {
+    this.generate = generate;
+    this.execute = execute;
+
+    this.length = length;
+    this.queue = [];
+    for(let i = 0; i < length; i++) {
+      this.queue[i] = this.generate();
+    }
+    this.freq = freq;
+
+    this.lastT = 0;
+    this.count = 0;
+    this.bigCount = 0;
+  }
+  
+  update({t}) {
+    const freq = this.freq;
+    if (Math.floor(t * freq) - Math.floor(this.lastT * freq)) {
+      this.execute(this.queue[this.count]);
+      this.count = (this.count + 1) % this.length;
+      if (this.count == 0) {
+        this.bigCount = (this.bigCount + 1) % 4;
+        if (this.bigCount == 0) {
+          const pos = Math.floor(Math.random() * this.length);
+          this.queue[pos] = this.generate();
+        }
+      }
+    }
+    this.lastT = t;
+  }
+  
+  // getPhase({t}) {
+  //   return t * this.freq - Math.floor(this.lastT * this.freq);
+  // }
+}
+
 const s = (p) => {
   p.setup = () => {
     p.createCanvas(400, 400);
   }
 
   let playing = false;
-  let dataArray, bufferLength;
-  let ampArray = [];
-  let bigCount = 0;
-  let bigCount2 = 0;
-  let count = 0;
-  let count2 = 0;
-  const genFreq = () => {return Math.random() > 0.2 ? getFrequency(p.random(['A', 'B', 'C', 'D', 'E', 'F', 'G'])+p.random(['3', '4'])) : 0}
-  const genFreq2 = () => {return getFrequency(p.random(['A', 'B', 'C', 'D', 'E', 'F', 'G'])+p.random(['1', '2']))}
-  const alen = 6;
-  const rhythm = { perm: [], perm2: [], delays: [], percl: [], perch: [] };
-  for(let i = 0; i < alen; i++) {
-    rhythm.perm[i] = genFreq();
-    rhythm.perm2[i] = genFreq2();
-    rhythm.delays[i] = Math.random() > 0.7 ? 0.25 : 0;
-    rhythm.percl[i] = Math.random() > 0.75;
-    rhythm.perch[i] = Math.random() > 0.75;
-  }
-  let x = 0;
-  let y = 0;
+
+  const rPerm = new Rhythm({
+    length: 6, freq: 8,
+    generate: () => {
+      return Math.random() > 0.2 ? getFrequency(p.random(['A', 'B', 'C', 'D', 'E', 'F', 'G'])+p.random(['3', '4'])) : 0
+    },
+    execute: (a) => {
+      nodes.nm.modGain.gain.linearRampToValueAtTime(a * (+1), audioCtx.currentTime + 0.04); // shift/delay important
+      nodes.nm.osc.frequency.linearRampToValueAtTime(a, audioCtx.currentTime + 0.04); // delay important
+    }
+  });
+
+  const rl = new Rhythm({
+    length: 6, freq: 8,
+    generate: () => {
+      return Math.random() > 0.5;
+    },
+    execute: (a) => {
+      changedl = false;
+      if(a) {
+        nodes.pulsel.play(0);
+        posl = (posl + 1) % 4;
+        changedl = true;
+      }
+    }
+  });
+  const rh = new Rhythm({
+    length: 6, freq: 8,
+    generate: () => {
+      return Math.random() > 0.5;
+    },
+    execute: (a) => {
+      changedh = false;
+      if(a) {
+        nodes.pulseh.play(0);
+        posh = (posh + 1) % 4;
+        changedh = true;
+      }
+    }
+  });
   let posl = 0;
   let posh = 0;
   let lastPosl = 0;
   let lastPosh = 0;
+  let changedl = false;
+  let changedr = false;
   p.draw = () => {
     const t = p.millis() * 0.001;
-
-    let tFreq = 8;
     if (playing) {
-      if (Math.floor(t * tFreq) - Math.floor(lastT * tFreq) > 0) {
-        nodes.nm.osc.type = 'sine';
-        count = (count + 1) % rhythm.perm.length;
-        let f = rhythm.perm[count];
-        // nodes.nm.modGain.gain.linearRampToValueAtTime(f * (+1), audioCtx.currentTime + 0.04); // shift/delay important
-        // nodes.nm.osc.frequency.linearRampToValueAtTime(f, audioCtx.currentTime + 0.04 + rhythm.delays[count]/tFreq); // delay important
-        // nodes.nm.amp.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + 0.04 + 0.125/tFreq + rhythm.delays[count]/tFreq);
-        // nodes.nm.amp.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.04 + 0.25 / tFreq + rhythm.delays[count]/tFreq);
-
-        lastPosl = posl;
-        if(rhythm.percl[count]) {
-          nodes.pulsel.play(0 + rhythm.delays[count]/tFreq);
-          posl = (posl + 1) % 4;
-        }
-        lastPosh = posh;
-        if(rhythm.perch[count]) {
-          nodes.pulseh.play(0);
-          posh = (posh + 1) % 4;
-        }
-        if(count == 0) {
-          bigCount = (bigCount + 1) % 4;
-        }
-        if(bigCount == 0) {
-          let pos = Math.floor(Math.random()*alen);
-          rhythm.perm[pos] = genFreq();
-          rhythm.delays[pos] = Math.random() > 0.7 ? 0.5 : 0;
-          rhythm.percl[pos] = Math.random() > 0.75;
-          rhythm.perch[pos] = Math.random() > 0.75;
-        }
-      }
-      tFreq = 0.5;
-      if (Math.floor(t * tFreq) - Math.floor(lastT * tFreq) > 0) {
-        count2 = (count2 + 1) % rhythm.perm.length;
-        let f = rhythm.perm2[count2];
-        // nodes.nm2.modGain.gain.linearRampToValueAtTime(f * (+1), audioCtx.currentTime + 0.04 + 0.5/4); // shift/delay important
-        // nodes.nm2.osc.frequency.linearRampToValueAtTime(f, audioCtx.currentTime + 0.04 + rhythm.delays[count]/4 + 0.5/4); // delay important
-
-        if(count2 == 0) {
-          bigCount2 = (bigCount2 + 1) % 4;
-        }
-        if(bigCount2 == 0) {
-          let pos = Math.floor(Math.random()*rhythm.perm.length);
-          rhythm.perm2[pos] = genFreq2();
-        }
-      }
+      rl.update({t});
+      rh.update({t});
     }
     lastT = t;
 
@@ -163,21 +179,26 @@ const s = (p) => {
       setColor(p, 'fill', 4)
       p.rect(0, 0, W, W);
 
-      let x = (p.lerp(lastPosl, posl, Math.min(1, ((t / tFreq) % 1) * 2)) % 1) * p.width;
+      let x = Math.min(1, (t * rl.freq % 1) * 2) * (p.width - w);
+      if(!changedl) x = p.width - w;
       setColor(p, 'fill', 3)
       p.push();
-      p.rotate(lastPosl * Math.PI / 2);
+      // if(changedl) 
+        p.rotate((posl) * Math.PI / 2);
+      // else p.rotate((posl+1) * Math.PI / 2);
       p.rect(x - W / 2 - w / 2, -w / 2 - W / 2, w, w);
       p.pop();
 
-      x = (p.lerp(lastPosh, posh, Math.min(1, ((t / tFreq) % 1) * 2)) % 1) * p.width;
+      x = Math.min(1, (t * rh.freq % 1) * 2) * (p.width - w);
+      if(!changedh) x = p.width - w;
       setColor(p, 'fill', 1)
       p.push();
-      p.rotate((lastPosh + 2) * Math.PI / 2);
+      // if(changedl) 
+        p.rotate((posh + 2) * Math.PI / 2);
+      // else p.rotate((posh + 3) * Math.PI / 2);
       p.rect(x - W / 2 - w / 2, -w / 2 - W / 2, w, w);
       p.pop();
     }
-
   }
 
   p.mousePressed = () => {
