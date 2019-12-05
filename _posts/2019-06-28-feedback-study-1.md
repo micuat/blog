@@ -3,7 +3,7 @@ layout: post
 title:  "Feedback Study 1"
 author: naoto
 categories: [ sketch ]
-tags: [ p5js ]
+tags: [ threejs, movement ]
 image: assets/images/2019-06-28-feedback-study-1.png
 description: "A sketch"
 featured: true
