@@ -908,6 +908,12 @@ img + em {
     font-style: normal;
 }
 
+.twitter-tweet {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
 .youtube-container {
     position: relative;
     width: 100%;
