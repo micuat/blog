@@ -167,7 +167,7 @@ const s = (p) => {
   let isPlaying = false;
   let prevChar = '';
 
-  let codeBase = '<<<<440f<<+40>>><440f<<<+20>>>n=1800~';
+  let codeBase = '<<<<440f<<+40>>><nnn=nnn=><440f<<<+20>>><<n=n=n=n=>>=1800~';
   let pastCommands = [];
   let colorShift = 1;
 
@@ -206,9 +206,10 @@ const s = (p) => {
 
   let hiCount = 0;
 
-  const patternDraw = (pg) => {
+  const maskDraw = (pg) => {
     pg.push();
-    setColor(pg, 'background', 0);
+    // setColor(pg, 'background', 0);
+    pg.background(0);
     pg.translate(p.width / 2, p.height / 2);
     let shapeFuncs = [
       (p, w, x, y) => {
@@ -246,10 +247,12 @@ const s = (p) => {
 
       if (!isNaN(command)) {
         if (index == pastCommands.length - 1) {
-          setColor(pg, 'fill', 1);
+          // setColor(pg, 'fill', 1);
+          pg.fill(255);
           pg.noStroke();
         } else {
-          setColor(pg, 'fill', 2);
+          // setColor(pg, 'fill', 2);
+          pg.fill(255);
           pg.noStroke();
         }
         pg.strokeWeight(h / 8);
@@ -257,38 +260,43 @@ const s = (p) => {
           if (!isNaN(node) && node > 1000) {
             hiCount++;
           }
-          setColor(pg, 'stroke', 3);
+          pg.stroke(255);
+          // setColor(pg, 'stroke', 3);
           shapeFuncs[2](pg, h * 4, (i % 15 + 1 - 8) * h, Math.floor(i / 15 - 7) * h);
         } else {
           shapeFuncs[0](pg, h, (i % 15 + 1 - 8) * h, Math.floor(i / 15 - 7) * h);
         }
       } else if (command == '=') {} else {
         if (index == pastCommands.length - 1) {
-          setColor(pg, 'fill', 3);
+          // setColor(pg, 'fill', 3);
+          pg.fill(255);
           pg.noStroke();
         } else {
-          setColor(pg, 'fill', 1);
+          // setColor(pg, 'fill', 1);
+          pg.fill(255);
           pg.noStroke();
         }
         // p.text(command, 0, (i+1) * h);
         pg.strokeWeight(h / 8);
-        shapeFuncs[1](pg, h, (i % 15 + 1 - 8) * h, Math.floor(i / 15 - 7) * h);
+        shapeFuncs[1](pg, h / 2, (i % 15 + 1 - 8) * h, Math.floor(i / 15 - 7) * h);
       }
     }
     pg.pop();
   }
-  const maskDraw = (pg) => {
+  const patternDraw = (pg) => {
     pg.push();
-    pg.background(0);
+    // pg.background(0);
+    setColor(pg, 'background', 0);
     pg.translate(pg.width / 2, pg.height / 2);
     pg.noStroke();
-    pg.fill(255);
-    pg.rotate(Math.PI / 4 * (hiCount * 2 + 1));
-    let n = (hiCount % 4) + 1;
+    // pg.fill(255);
+    setColor(pg, 'fill', 3);
+    pg.rotate(Math.PI * 0.25 * hiCount);
+    let n = 4;
     let r = pg.width / 1.4 / n;
     pg.rectMode(p.CENTER);
     for (let i = -n; i <= n; i++) {
-      pg.rect(i * r, 0, r / 2, pg.height * 2);
+      pg.rect(i * r, 0, p.map(p.frameCount % 64, 0, 63, r / 2, r), pg.height * 2);
     }
     pg.pop();
   }
@@ -304,25 +312,47 @@ const s = (p) => {
     p.beginShape();
     const n = 128;
     let x = 0;
-    if (curSynth == 'f' && freq < 11000) x = 0.1;
+    // if (curSynth == 'f' && freq < 11000) x = 0.2;
+    x = 0.2;
     for (let i = 0; i < n; i++) {
       const th = i / n * 2 * Math.PI;
       let r = R * (1 + x * Math.random());
       p.vertex(r * Math.cos(th), r * Math.sin(th));
     }
-    p.endShape();
+    p.endShape(p.CLOSE);
+  }
+  const waveFunc = (p) => {
+    p.beginShape();
+    const n = 128;
+    let x = 0;
+    if (curSynth == 'f' && freq < 11000) x = 0.02;
+    p.vertex(0, p.height);
+    for (let i = 0; i <= n; i++) {
+      const th = i / n * 8 * Math.PI + p.millis();
+      let r = x * (Math.sin(th));
+      p.vertex(i / n * p.width, p.height * (0.5 + r));
+    }
+    p.vertex(p.width, p.height);
+    p.endShape(p.CLOSE);
   }
   const backDraw = (pg) => {
     pg.push();
-    setColor(pg, 'background', 1);
+    setColor(pg, 'background', 0);
     setColor(pg, 'fill', 2);
+    pg.strokeWeight(pg.width / 64);
     pg.noStroke();
-    pg.translate(pg.width / 2, pg.height / 2);
-    blobFunc(pg, pg.width / 3);
+    if(node == 'n' || lastNode == 'n') {
+      pg.translate(pg.width / 2, pg.height / 2);
+      blobFunc(pg, pg.width / 3);
+    }
+    else {
+      waveFunc(pg);
+    }
     pg.pop();
   }
 
   let node;
+  let lastNode;
   let curSynth;
 
   p.draw = () => {
@@ -330,6 +360,7 @@ const s = (p) => {
 
     if (isPlaying) {
       if (pointer < tokens.length) {
+        lastNode = node;
         node = tokens[pointer];
         execute(node);
       } else {
@@ -357,9 +388,9 @@ const s = (p) => {
     pgb1.image(pg2, 0, 0);
     pgb1.blendMode(p.MULTIPLY);
     pgb1.image(pgInvertMask, 0, 0);
-    
-    p.background(0);
+
     p.blendMode(p.BLEND);
+    p.background(0);
     p.image(pgb1, 0, 0);
     p.blendMode(p.ADD);
     p.image(pgb0, 0, 0);
