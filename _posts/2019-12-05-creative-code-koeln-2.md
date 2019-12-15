@@ -10,7 +10,7 @@ featured: true
 comments: true
 ---
 
-The second meetup of [Creative Code Köln](https://creativecodekoeln.github.io/) took place on November 28, 2019 at [akkuraum](https://www.akkuraum.com/) in Cologne. Please read the [first post]({{ site.baseurl }}/creative-code-koeln-1) if you want to know the philosophy of the meetup and why I started it.
+The second meetup of [Creative Code Köln](https://creativecodekoeln.github.io/) took place on December 5, 2019 at [akkuraum](https://www.akkuraum.com/) in Cologne. Please read the [first post]({{ site.baseurl }}/creative-code-koeln-1) if you want to know the philosophy of the meetup and why I started it.
 
 This time, [Alex Rechberg](http://www.alexanderrechberg.com/) visited us and gave an introduction to [Cables](https://cables.gl/). It is a patching programming language on browser, similar to vvvv and Max (but you can do more with JavaScript and GLSL), and you can easily create interactive web apps with it. Within ten minutes, he built a scene with animated objects, and he also showed us how to share the project and how to import other artists' patch in your project. He has been working with the developer and using Cables for production including the upcoming performance at [Temps d'Images Festival](https://tanzhaus-nrw.de/en/event/2020/01/showing) at tanzhaus nrw.
 
