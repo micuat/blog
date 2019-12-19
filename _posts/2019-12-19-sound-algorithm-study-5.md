@@ -52,7 +52,7 @@ class ColorScheme {
 
 var colorSchemes = [
   new ColorScheme("https://coolors.co/5386e4-7fc29b-b5ef8a-d7f171-817e9f"),
-  new ColorScheme("https://coolors.co/b5ef8a-7fc29b-5386e4-d7f171-817e9f"),
+  new ColorScheme("https://coolors.co/7fc29b-b5ef8a-5386e4-817e9f-d7f171"),
   new ColorScheme("https://coolors.co/000000-808080-ffffff-333333-aaaaaa"),
   new ColorScheme("https://coolors.co/ffffff-808080-000000-333333-aaaaaa"),
 ];
@@ -224,10 +224,10 @@ const width = 400;
 const height = 400;
 
 class MixGraphics {
-  constructor(p) {
+  constructor({p, pgF, pgB}) {
     this.p = p;
-    this.pgF = p.createGraphics(width, height);
-    this.pgB = p.createGraphics(width, height);
+    this.pgF = pgF == undefined ? p.createGraphics(width, height) : pgF;
+    this.pgB = pgB == undefined ? p.createGraphics(width, height) : pgB;
     this.pgMask = p.createGraphics(width, height);
     this.pgbF = p.createGraphics(width, height);
     this.pgbB = p.createGraphics(width, height);
@@ -279,11 +279,12 @@ const s = (p) => {
   let isPlaying = false;
   let prevChar = '';
 
-  let codeBase = '<<<<30f<<+2^+2^^^>>92~>><1f<<=====>>>95~<<50f<<-2^-2^^^>>92~>>';
+  let codeBase = '<<<<<40f<<+8f-2ff>>86~';
   let pastCommands = [];
   let colorShift = 1;
 
-  let mix0;
+  let pg0;
+  let mix0, mixL, mixP;
   
   let t = 0;
 
@@ -291,7 +292,9 @@ const s = (p) => {
     p.createCanvas(400, 400);
     p.frameRate(30);
 
-    mix0 = new MixGraphics(p);
+    mix0 = new MixGraphics({p});
+    mixL = new MixGraphics({p});
+    mixP = new MixGraphics({p});
 
     synths['~'] = new p5.Oscillator(freq, 'sine');
     synths['a'] = new AM();
@@ -403,7 +406,6 @@ const s = (p) => {
   const bang = () => {
     bangT = t;
     bangCycle = (bangCycle + 1) % 2;
-    console.log(bangCycle)
     bangParam = Math.floor(p.random(4));
   }
   const wipeDraws = [
@@ -512,7 +514,7 @@ const s = (p) => {
     p.beginShape();
     const n = 128;
     let x = 0;
-    if (curSynth == 'f' && freq < 11000) x = 0.02;
+    if (curSynth == 'f') x = 0.03;
     p.vertex(0, p.height);
     for (let i = 0; i <= n; i++) {
       const th = i / n * 8 * Math.PI + p.millis();
@@ -525,9 +527,8 @@ const s = (p) => {
   const backDraws = [
     (pg) => {
       pg.push();
-      setColor(pg, 'background', 3);
-      setColor(pg, 'fill', 1);
-      pg.strokeWeight(pg.width / 64);
+      setColor(pg, 'background', 2);
+      setColor(pg, 'fill', 4);
       pg.noStroke();
       pg.translate(pg.width / 2, pg.height / 2);
       blobFunc(pg, pg.width / 3);
@@ -535,14 +536,50 @@ const s = (p) => {
     },
     (pg) => {
       pg.push();
-      setColor(pg, 'background', 3);
-      setColor(pg, 'fill', 1);
-      pg.strokeWeight(pg.width / 64);
+      setColor(pg, 'background', 2);
+      setColor(pg, 'fill', 4);
       pg.noStroke();
       waveFunc(pg);
       pg.pop();
     },
-  ]
+  ];
+  const lfoMaskDraws = [
+    (pg) => {
+      pg.push();
+      setColor(pg, 'background', 0);
+      setColor(pg, 'fill', 2);
+      pg.noStroke();
+      pg.rectMode(p.CENTER);
+      let n = 3;
+      let r = pg.width / n;
+      for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+          pg.push();
+          pg.translate((j+0.5) * r, (i+0.5) * r);
+          let th = (t + i + j) % 5;
+          if(th > 4) th = 4;
+          th = EasingFunctions.easeInOutCubic(th / 4);
+          pg.rotate(th * Math.PI)
+          pg.rect(0, 0, r*Math.cos(th * Math.PI), r*Math.cos(th * Math.PI));
+          pg.pop();
+        }
+      }
+      pg.pop();
+    },
+    (pg) => {
+      pg.push();
+      setColor(pg, 'background', 0);
+      setColor(pg, 'fill', 2);
+      pg.noStroke();
+      let r = pg.width / 1;
+      let n = 4;
+      let w = r / n;
+      for(let i = 0; i < n; i++) {
+        pg.rect(w*i, 0, w, r * (EasingFunctions.easeInOutCubic(0.5+0.5*Math.sin((t+i/n*2)) * Math.PI / 2)));
+      }
+      pg.pop();
+    },
+  ];
 
   let node;
   let lastNode;
@@ -573,14 +610,31 @@ const s = (p) => {
 
     setColorMode = 0;
 
+    backDraws[0](mixL.pgB);
+    setColorMode = 1;
+    backDraws[1](mixL.pgF);
+    setColorMode = 2;
+    lfoMaskDraws[0](mixL.pgMask);
+    setColorMode = 0;
+    mixL.update();
+
+    setColorMode = 1;
+    backDraws[0](mixP.pgB);
+    maskDraw(mixP.pgF);
+    setColorMode = 2;
+    lfoMaskDraws[1](mixP.pgMask);
+    setColorMode = 0;
+    mixP.update();
+
     if(bangCycle == 0) {
-      backDraws[0](mix0.pgF);
-      maskDraw(mix0.pgB);
+      mixL.draw(mix0.pgB);
+      mixP.draw(mix0.pgF);
     }
     else {
-      maskDraw(mix0.pgF);
-      backDraws[0](mix0.pgB);
+      mixP.draw(mix0.pgB);
+      mixL.draw(mix0.pgF);
     }
+    
     setColorMode = 2;
     wipeDraws[curPattern](mix0.pgMask);
     setColorMode = 0;
