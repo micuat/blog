@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "Hydra Texture Study 4"
+title:  "Hydra Texture Study 5"
 author: naoto
 categories: [ sketch ]
 tags: [ hydra, webgl ]
-image: assets/images/2019-12-18-hydra-texture-study-4.png
+image: assets/images/2019-12-19-hydra-texture-study-5.png
 description: "A sketch"
 featured: true
 comments: true
