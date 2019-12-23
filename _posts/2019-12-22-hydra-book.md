@@ -185,8 +185,96 @@ src(o1).shift(0.5).saturate(0).out(o0)
 
 ![shapes-mod]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-shapesmod.png)
 
+Scaling
+--------
+
+Scaling and difference can also create a periodic texture.
+
+{% highlight javascript %}
+shape(4,0.8).diff(src(o0).scale(0.9)).out(o0)
+{% endhighlight %}
+
+![shape-scale]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-shapescale.png)
+
+This technique can also be applied to a complex texture.
+
+{% highlight javascript %}
+voronoi(10,0).diff(src(o0).scale(0.9)).out(o0)
+{% endhighlight %}
+
+![voronoi-scale]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-voronoiscale.png)
+
 Colors
 ========
+
+Gradient
+--------
+
+`gradient()` is one of the sources to generate a gradient texture. The first argument determines the speed of the color change.
+
+{% highlight javascript %}
+gradient(0).out(o0)
+{% endhighlight %}
+
+![gradient]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-gradient.png)
+
+Oscillator
+--------
+
+With the third argument of `osc()`, an oscillator generates a colored texture.
+
+{% highlight javascript %}
+osc(10,0,1).out(o0)
+{% endhighlight %}
+
+![osc-color]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-osccolor.png)
+
+Color Operations
+--------
+
+Although not documented, `hue` is a useful function to shift the hue in HSV (hue, saturation, value) color space. The saturation and brightness of the color are preserved, and only the hue is affected.
+
+{% highlight javascript %}
+osc(30,0,1).hue(0.5).out(o0)
+{% endhighlight %}
+
+![hue]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-hue.png)
+
+In contrast, `colorama()` shifts all H, S and V values, implemented as follows:
+
+{% highlight glsl %}
+vec4 colorama(vec4 c0, float amount){
+  vec3 c = _rgbToHsv(c0.rgb);
+  c += vec3(amount);
+  c = _hsvToRgb(c);
+  c = fract(c);
+  return vec4(c, c0.a);
+}
+{% endhighlight %}
+
+Therefore, the resulting image is rather unpredictable (for explanation, the top part shows the original image (oscillator) and the bottom shows colorama-ed result).
+
+{% highlight javascript %}
+osc(30,0,1).colorama(0.01)
+{% endhighlight %}
+
+![colorama]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-colorama.png)
+
+`luma()` masks an image based on the luminosity. Similar to `thresh()`, however, the color of the bright part of the image is preserved. The first argument is for the threshold, and the second is for the tolerance (with bigger tolerance, the boundary becomes blurrier).
+
+{% highlight javascript %}
+osc(30,0,1).luma(0.5,0).out(o0)
+{% endhighlight %}
+
+![luma]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-luma.png)
+
+Importantly, `luma()` returns an image with transparency. Therefore, the image can be overlayed to another image.
+
+{% highlight javascript %}
+osc(200,0,1).rotate(1).layer(osc(30,0,1).luma(0.5,0)).out(o0)
+{% endhighlight %}
+
+![luma-layer]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-lumalayer.png)
 
 Motions
 ========
