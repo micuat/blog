@@ -5,7 +5,7 @@ author: naoto
 categories: [ sketch ]
 tags: [ hydra, webgl ]
 image: assets/images/2019-12-22-hydra-book-osckaleid2.png
-description: "A sketch"
+description: "A book"
 featured: true
 comments: true
 ---
