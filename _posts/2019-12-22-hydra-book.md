@@ -31,11 +31,13 @@ Table of Contents
   * [Voronoi](#voronoi)
   * [Shapes](#shapes)
   * [Modulator](#modulator)
+    * [modulateScale](#modulatescale)
   * [Scaling](#scaling)
 * [Colors](#colors)
   * [Gradient](#gradient)
   * [Oscillator](#oscillator-1)
   * [Color Operations](#color-operations)
+  * [Feedback](#feedback)
 * [Arithmetic](#arithmetic)
   * [Normalization](#normalization)
   * [Blending](#blending)
@@ -224,6 +226,32 @@ src(o1).shift(0.5).saturate(0).out(o0)
 
 ![shapes-mod]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-shapesmod.png)
 
+### modulateScale
+
+`modulateScale` is a variant of `modulate`. The original `modulate` translates the texture coordinate by `(r, g)` which is the color of modulating texture; `modulateScale` scales the pixel position by `(r, g)`. Simply applying `modulateScale` can create huge distortion, which is pleasant as it is, but you can extend your repertoire by understanding the behavior of `modulateScale`. For example, modulating a high frequency oscillator by a low frequency oscillator can create the following distortion. Note that `modulateScrollX` achieves a similar effect; nevertheless, scrolling involve texture wrapping which creates a discontinuity unlike scaling.
+
+{% highlight javascript %}
+osc(60,0).modulateScale(osc(8,0)).out(o0)
+{% endhighlight %}
+
+![scale-mod]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-oscmodscale.png)
+
+`kaleid` can be added to create a ripple or breathing effect towards or from the center.
+
+{% highlight javascript %}
+osc(60,0).modulateScale(osc(8,0)).kaleid(400).out(o0)
+{% endhighlight %}
+
+![scale-mod-kaleid]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-oscmodscalekaleid.png)
+
+This breathing or ripple texture can be further used for modulating another texture.
+
+{% highlight javascript %}
+shape(400,0.5).repeat(40,40).modulate(osc(60,0).modulateScale(osc(8,0)).kaleid(400),0.02).out(o0)
+{% endhighlight %}
+
+![scale-mod-kaleid-mod]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-oscmodscalekaleidmod.png)
+
 Scaling
 --------
 
@@ -266,6 +294,22 @@ voronoi(10,0,0).thresh(0.5,0).add(src(o0).scale(0.9),-1).out(o0)
 {% endhighlight %}
 
 ![voronoi-scale-mask]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-voronoiscaleadd.png)
+
+These examples can be used together with rotation.
+
+{% highlight javascript %}
+shape(4,0.9).add(src(o0).scale(0.9).rotate(0.1),-1).out(o0)
+{% endhighlight %}
+
+![shape-scale-rotate]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-shapescalerotate.png)
+
+Or, instead of `scale`, scrolling functions (`scrollX` and `scrollY`) can be used with a feedback loop.
+
+{% highlight javascript %}
+shape(4,0.7).add(src(o0).scrollX(0.01),-1).out(o0)
+{% endhighlight %}
+
+![shape-scroll]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-shapescroll.png)
 
 Colors
 ========
@@ -338,6 +382,17 @@ osc(200,0,1).rotate(1).layer(osc(30,0,1).luma(0.5,0)).out(o0)
 {% endhighlight %}
 
 ![luma-layer]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-lumalayer.png)
+
+Feedback
+--------
+
+A feedback loop can be used to create unexpected color effects. For example, based on an example from [Scaling](#scaling), a periodic color texture can be generated.
+
+{% highlight javascript %}
+shape(4,0.7,0).add(src(o0).scrollX(0.01).scrollY(0.01).color(1,1,0).hue(0.1),-1).out(o0)
+{% endhighlight %}
+
+![color-feedback]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-colorfeedback.png)
 
 Arithmetic
 ========
