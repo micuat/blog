@@ -125,6 +125,21 @@ a().rotate(Math.PI/4).out()
 
 ![polka]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-polka.png)
 
+This tiling technique can be used to create a RGB pixel filter. In this example, `func` is decomposed into R, G, and B channels and overlaid on top of each other.
+
+{% highlight javascript %}
+n = 50;
+func = () => osc(30,0.0,1).modulate(noise(4,0))
+pix = () => shape(4,0.3,0).scale(1,1,3).repeat(n,n)
+pix().mult(func().color(1,0,0).pixelate(n,n)).out(o1)
+pix().mult(func().color(0,1,0).pixelate(n,n)).scrollX(1/n/3).out(o2)
+pix().mult(func().color(0,0,1).pixelate(n,n)).scrollX(2/n/3).out(o3)
+
+solid().add(src(o1),1).add(src(o2),1).add(src(o3),1).out(o0)
+{% endhighlight %}
+
+![shapes-rgb]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-shapesrgb.png)
+
 Modulator
 --------
 
