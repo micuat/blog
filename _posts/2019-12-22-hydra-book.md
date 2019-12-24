@@ -246,7 +246,7 @@ voronoi(10,0).diff(src(o0).scale(0.9)).out(o0)
 The effect can be enhanced by `thresh` and setting the third argument of `voronoi` to 0, to have sharp edges. However, a naive implementation will end up in a complete noise.
 
 {% highlight javascript %}
-voronoi(10,1,0).thresh(0.5,0).diff(src(o0).scale(0.9)).out(o0)
+voronoi(10,0,0).thresh(0.5,0).diff(src(o0).scale(0.9)).out(o0)
 {% endhighlight %}
 
 ![voronoi-scale-fail]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-voronoiscalefail.png)
@@ -258,6 +258,14 @@ voronoi(10,0,0).thresh(0.5,0).mask(shape(4,0.8,0)).diff(src(o0).scale(0.9)).out(
 {% endhighlight %}
 
 ![voronoi-scale-mask]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-voronoiscalemask.png)
+
+Or, `diff` can be replaced by `add(oX, -1)` to avoid oscillation. The difference between `add` and `diff` is discussed in [Blending](#blending) section.
+
+{% highlight javascript %}
+voronoi(10,0,0).thresh(0.5,0).mask(shape(4,0.8,0)).diff(src(o0).scale(0.9)).out(o0)
+{% endhighlight %}
+
+![voronoi-scale-mask]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-voronoiscaleadd.png)
 
 Colors
 ========
