@@ -24,9 +24,21 @@ This article is a work-in-progress online book to collect Hydra snippets. The go
 Table of Contents
 ========
 
+* [Preface](#preface)
 * [Textures](#textures)
+  * [Oscillator](#oscillator)
+  * [Noise](#noise)
+  * [Voronoi](#voronoi)
+  * [Shapes](#shapes)
+  * [Modulator](#modulator)
+  * [Scaling](#scaling)
 * [Colors](#colors)
+  * [Gradient](#gradient)
+  * [Oscillator](#oscillator-1)
+  * [Color Operations](#color-operations)
 * [Arithmetic](#arithmetic)
+  * [Normalization](#normalization)
+  * [Blending](#blending)
 
 Textures
 ========
@@ -99,6 +111,12 @@ Shapes
 
 {% highlight javascript %}
 shape(2).scale(0.01).out(o0)
+{% endhighlight %}
+
+or simply,
+
+{% highlight javascript %}
+shape(2,0.0025,0).out(o0)
 {% endhighlight %}
 
 ![line]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-line.png)
@@ -316,7 +334,12 @@ osc(200,0,1).rotate(1).layer(osc(30,0,1).luma(0.5,0)).out(o0)
 Arithmetic
 ========
 
-Arithmetic is not the most exciting topic; nevertheless, you might encounter undesired blending effects and wonder how to fix it. The output range of the sources are not all the same. In this example, `func`'s negative value is clipped by `luma` and overlaid on a red solid texture. If `func` is normalized from 0 to 1, the resulting texture is the same as `func` as it is not affected by `luma`. However, if `func` is normalized from -1 to 1, the negative values are clipped and the red texture appears. `osc`, `gradient` and `voronoi` are the former (0 to 1) and `noise` is the latter (-1 to 1) as seen in the image below.
+Arithmetic is not the most exciting topic; nevertheless, you might encounter undesired blending effects and wonder how to fix it. The output range of the sources are not all the same.
+
+Normalization
+--------
+
+In this example, `func`'s negative value is clipped by `luma` and overlaid on a red solid texture. If `func` is normalized from 0 to 1, the resulting texture is the same as `func` as it is not affected by `luma`. However, if `func` is normalized from -1 to 1, the negative values are clipped and the red texture appears. `osc`, `gradient` and `voronoi` are the former (0 to 1) and `noise` is the latter (-1 to 1) as seen in the image below.
 
 {% highlight javascript %}
 epsilon=0.001
@@ -334,7 +357,10 @@ solid(0.5,0.5,0.5).add(noise(10,0),0.5).out(o0)
 
 ![arithmetic-noise]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-arithmeticnormalnoise.png)
 
-Another example is the difference between `add` and `diff`. `add(oX, -1)` might seem to be identical to `diff(oX)`. Although `add` simply adds the texture (the first argument) multiplied by a scalar (the second argument), `diff` first takes a difference of two textures and returns absolute values. Note that `diff` only takes one argument, and the resulting alpha value is the maximum value between two values.
+Blending
+--------
+
+This example shows the difference between `add` and `diff`. `add(oX, -1)` might seem to be identical to `diff(oX)`. Although `add` simply adds the texture (the first argument) multiplied by a scalar (the second argument), `diff` first takes a difference of two textures and returns absolute values. Note that `diff` only takes one argument, and the resulting alpha value (transparency) is the maximum value between two values.
 
 {% highlight glsl %}
 vec4 diff(vec4 c0, vec4 c1){
@@ -351,6 +377,28 @@ src(o1).mask(shape(2,0.5,0.001).scrollY(0.25)).add(src(o2).mask(shape(2,0.5,0.00
 {% endhighlight %}
 
 ![arithmetic-noise]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-arithmeticadd.png)
+
+Another confusing blending functions are `mult` and `mask`. On Hydra interface, the result might appear the same; however, they treat the alpha channel differently. First, `mult` simply multiplies the color values of two textures. Each channel, R, G, B and A are treated independently. Therefore, the alpha channel of the resulting image in the example below remains 1 (note that both `osc` and `shape` return opaque textures), and the texture underneath cannot be seen.
+
+{% highlight javascript %}
+osc(10,0,1).hue(0.5).layer(osc(10,0,1).mult(shape(4,0.5,0))).out()
+{% endhighlight %}
+
+![mult]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-arithmeticmult.png)
+
+Contrarily, `mask` only uses the luminance of the mask texture. The returned texture is not only the multiplication of the masked texture and the luminance of mask, the alpha channel is overwritten by the luminance of mask. Therefore, the returned texture can be overlaid on another texture by `layer`.
+
+{% highlight javascript %}
+osc(10,0,1).hue(0.5).layer(osc(10,0,1).mask(shape(4,0.5,0))).out()
+{% endhighlight %}
+
+![mask]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-arithmeticmask.png)
+
+With `mult`, a similar effect can be obtained by using `luma` to modify the alpha channel. In this example, the resulting image is the same; however, with a grayscale texture, the result depends on the arguments of `luma`.
+
+{% highlight javascript %}
+osc(10,0,1).hue(0.5).layer(osc(10,0,1).mult(shape(4,0.5,0).luma(0.5,0))).out()
+{% endhighlight %}
 
 Motions
 ========
