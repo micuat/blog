@@ -21,6 +21,12 @@ Preface
 
 This article is a work-in-progress online book to collect Hydra snippets. The goal is not only to accumulate frequently-used techniques to make coding easier but also to research the theory of Hydra to discover new images.
 
+Table of Contents
+========
+
+* [Textures](#textures)
+* [Colors](#colors)
+* [Arithmetic](#arithmetic)
 
 Textures
 ========
@@ -306,6 +312,37 @@ osc(200,0,1).rotate(1).layer(osc(30,0,1).luma(0.5,0)).out(o0)
 {% endhighlight %}
 
 ![luma-layer]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-lumalayer.png)
+
+Arithmetic
+========
+
+Arithmetic is not the most exciting topic; nevertheless, you might encounter undesired blending effects and wonder how to fix it. The output range of the sources are not all the same. In this example, `func`'s negative value is clipped by `luma` and overlaid on a red solid texture. If `func` is normalized from 0 to 1, the resulting texture is the same as `func` as it is not affected by `luma`. However, if `func` is normalized from -1 to 1, the negative values are clipped and the red texture appears. `osc`, `gradient` and `voronoi` are the former (0 to 1) and `noise` is the latter (-1 to 1) as seen in the image below.
+
+{% highlight javascript %}
+epsilon=0.001
+func = () => noise(4,0)
+solid(1,0,0).layer(func().luma(-epsilon,0)).out(o0)
+{% endhighlight %}
+
+![arithmetic-noise]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-arithmeticnoise.png)
+
+Another example is the difference between `add` and `diff`. `add(oX, -1)` might seem to be identical to `diff(oX)`. Although `add` simply adds the texture (the first argument) multiplied by a scalar (the second argument), `diff` first takes a difference of two textures and returns absolute values. Note that `diff` only takes one argument, and the resulting alpha value is the maximum value between two values.
+
+{% highlight glsl %}
+vec4 diff(vec4 c0, vec4 c1){
+  return vec4(abs(c0.rgb-c1.rgb), max(c0.a, c1.a));
+}
+{% endhighlight %}
+
+In this example, a gray solid texture is subtracted by `osc` using two different functions. Notice the difference; `diff` (top) returns absolute values therefore continuous, and `add` (bottom) keeps negative values which appears black.
+
+{% highlight javascript %}
+solid(0.5,0.5,0.5).diff(osc(40,0,1)).out(o1)
+solid(0.5,0.5,0.5).add(osc(40,0,1),-1).out(o2)
+src(o1).mask(shape(2,0.5,0.001).scrollY(0.25)).add(src(o2).mask(shape(2,0.5,0.001).scrollY(-0.25)), 1).out(o0)
+{% endhighlight %}
+
+![arithmetic-noise]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-arithmeticadd.png)
 
 Motions
 ========
