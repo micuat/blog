@@ -326,6 +326,14 @@ solid(1,0,0).layer(func().luma(-epsilon,0)).out(o0)
 
 ![arithmetic-noise]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-arithmeticnoise.png)
 
+`noise` can be normalized to 0-1 by the following method:
+
+{% highlight javascript %}
+solid(0.5,0.5,0.5).add(noise(10,0),0.5).out(o0)
+{% endhighlight %}
+
+![arithmetic-noise]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-arithmeticnormalnoise.png)
+
 Another example is the difference between `add` and `diff`. `add(oX, -1)` might seem to be identical to `diff(oX)`. Although `add` simply adds the texture (the first argument) multiplied by a scalar (the second argument), `diff` first takes a difference of two textures and returns absolute values. Note that `diff` only takes one argument, and the resulting alpha value is the maximum value between two values.
 
 {% highlight glsl %}
