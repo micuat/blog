@@ -16,6 +16,10 @@ tonejs: true
   <!-- p5 instance will be created here -->
 </div>
 
+* [Waltz of the Circles by MiniPear](https://www.openprocessing.org/sketch/748916)
+* [particleFlow by yasai](https://www.openprocessing.org/sketch/422446)
+* [My Sketch by Mara@website.com](https://www.openprocessing.org/sketch/757327)
+
 <script>
 function midiToFreq(m) {
   let tuning = 440;
