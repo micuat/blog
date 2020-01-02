@@ -9,6 +9,7 @@ description: "An announcement of the Body and the Other"
 featured: true
 comments: true
 p5: true
+hidden: true
 ---
 
 **Per_Dance Choreographic Research Platform** invites you to the dance performance  
