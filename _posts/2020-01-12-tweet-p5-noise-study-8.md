@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "Tweet P5 Weaving Study 1"
+title:  "Tweet P5 Noise Study 8"
 author: naoto
 categories: [ sketch ]
 tags: [ p5js, tinysketch ]
-image: assets/images/2020-01-12-tweet-p5-weaving-study-1.png
+image: assets/images/2020-01-12-tweet-p5-noise-study-8.png
 description: "A sketch"
 featured: true
 comments: true
