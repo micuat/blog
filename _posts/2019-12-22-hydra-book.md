@@ -378,7 +378,7 @@ vec4 colorama(vec4 c0, float amount){
 Therefore, the resulting image is rather unpredictable (for explanation, the top part shows the original image (oscillator) and the bottom shows colorama-ed result).
 
 {% highlight javascript %}
-osc(30,0,1).colorama(0.01)
+osc(30,0,1).colorama(0.01).out(o0)
 {% endhighlight %}
 
 ![colorama]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-colorama.png)
@@ -386,7 +386,7 @@ osc(30,0,1).colorama(0.01)
 This unpredictability is due to the following reasons. In the GLSL snippet above, first, HSV values are increased by `amount`, and after converting back to RGB, the `fract` value is returned. Since `fract` returns the fraction of the value (equivalent to `x % 1` in JavaScript), any values exceeding 1 will wrap to 0, which causes the discontinuity and unpredictable colors. Therefore, one way to make `colorama` effect less harsh is to set negative value as an argument:
 
 {% highlight javascript %}
-osc(30,0,1).colorama(-0.1)
+osc(30,0,1).colorama(-0.1).out(o0)
 {% endhighlight %}
 
 ![colorama-negative]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-colorama-negative.png)
@@ -406,6 +406,15 @@ osc(200,0,1).rotate(1).layer(osc(30,0,1).luma(0.5,0)).out(o0)
 {% endhighlight %}
 
 ![luma-layer]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-lumalayer.png)
+
+With the second argument of `luma`, a shadow-like effect can be created. First, turn the texture to grayscale by `saturate(0)`, then use `luma(0.2,0.2)` to create blurred boundaries, and finally `color(0,0,0,1)` to convert grayscale to an alpha mask with black color. In the example, foreground texture `f()` is defined for convenience to avoid duplication for shadow generation and foreground rendering. The shadow texture is overlaid on the background texture `osc(200,0,1)` and then the foreground texture `f()` is overlaid on the shadow texture.
+
+{% highlight javascript %}
+f=()=>osc(30,0,1)
+osc(200,0,1).rotate(1).layer(f().saturate(0).luma(0.2,0.2).color(0,0,0,1)).layer(f().luma(0.5,0)).out(o0)
+{% endhighlight %}
+
+![luma-shadow]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-luma-shadow.png)
 
 Feedback
 --------
