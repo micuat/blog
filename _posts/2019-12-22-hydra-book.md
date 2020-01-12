@@ -192,6 +192,20 @@ osc(40,0,1).modulate(noise(3,0))
 
 We can make a few observations. First, the color of the original image (or modulated image, `osc(40,0,1)`) is preserved. Second, the oscillator is distorted to resemble the pattern of the modulating texture, `noise(3,0)`. Modulators can be seen from two different perspectives. On the one hand, a modulator literally modulates (or distorts) the chained function (`osc` in this example). In this section, we cover this aspect to explore the distortion. On the other hand, it can be seen as a way to paint the modulator function (`noise` in this example). For example, `noise` itself is grayscale, but using it as an argument of a modulator, the noise pattern is painted with, for example, an oscillator or a gradient.
 
+Here is a pseudocode of `A.modulate(B, amount)` producing `ANew`. This might be helpful if you are already familiar with coding environments such as Processing and openFrameworks.
+
+{% highlight c %}
+Pixel[][] A;
+Pixel[][] B;
+Pixel[][] ANew;
+for(int y = 0; y < height; y++) {
+  for(int x = 0; x < width; x++) {
+    Pixel b = B[y][x];
+    ANew[y][x] = A[y + b.green * amount][x + b.red * amount];
+  }  
+}
+{% endhighlight %}
+
 A modulator with a feedback loop keeps *pushing* pixels based on its brightness. In this example, a noise is modulated by itself in a feedback loop. As a result, bright pixels are pushed further and further, creating a smooth, 3D-like effect.
 
 {% highlight javascript %}
