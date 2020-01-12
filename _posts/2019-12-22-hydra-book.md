@@ -383,6 +383,14 @@ osc(30,0,1).colorama(0.01)
 
 ![colorama]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-colorama.png)
 
+This unpredictability is due to the following reasons. In the GLSL snippet above, first, HSV values are increased by `amount`, and after converting back to RGB, the `fract` value is returned. Since `fract` returns the fraction of the value (equivalent to `x % 1` in JavaScript), any values exceeding 1 will wrap to 0, which causes the discontinuity and unpredictable colors. Therefore, one way to make `colorama` effect less harsh is to set negative value as an argument:
+
+{% highlight javascript %}
+osc(30,0,1).colorama(-0.1)
+{% endhighlight %}
+
+![colorama-negative]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-colorama-negative.png)
+
 `luma()` masks an image based on the luminosity. Similar to `thresh()`, however, the color of the bright part of the image is preserved. The first argument is for the threshold, and the second is for the tolerance (with bigger tolerance, the boundary becomes blurrier).
 
 {% highlight javascript %}
