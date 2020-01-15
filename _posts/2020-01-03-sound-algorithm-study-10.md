@@ -21,6 +21,12 @@ Click to start.
 * [My Sketch by Mara@website.com](https://www.openprocessing.org/sketch/757327)
 
 <script>
+// Naoto Hieda
+// https://creativecommons.org/licenses/by-sa/3.0/
+
+// credit
+// Mara@website.com https://www.openprocessing.org/sketch/757327
+
 function midiToFreq(m) {
   let tuning = 440;
   return Math.pow(2, (m - 69) / 12) * tuning;
