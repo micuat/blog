@@ -10,7 +10,9 @@ featured: true
 comments: true
 ---
 
-ドイツのデュッセルドルフで2020年1月10日から18日に行われた[Temps d'Images](https://tanzhaus-nrw.de/en/specials/festival/temps-dimages-2020)のレポートです。このフェスティバルには昨年は Choy Ka Fai の Dance Clinic のインタラクティブ・プログラミングで参加させていただいた他、代打でプレゼンテーションもさせていただきました。今回は Eleonora Siarava の The Body and the Other にてリアルタイムのプロジェクション・マッピングの担当として参加しました。公演のほかインスタレーションもありましたが、インスタレーションでもパフォーマーと踊りながら体験するものが多かったため残念ながら写真はほとんど撮れていません。
+ドイツのデュッセルドルフで2020年1月10日から18日に行われた[Temps d'Images](https://tanzhaus-nrw.de/en/specials/festival/temps-dimages-2020)のレポートです。
+
+このフェスティバルには昨年は Choy Ka Fai の Dance Clinic のインタラクティブ・プログラミングで参加させていただいた他、代打でプレゼンテーションもさせていただきました。今回は Eleonora Siarava の The Body and the Other にてリアルタイムのプロジェクション・マッピングの担当として参加しました。公演のほかインスタレーションもありましたが、インスタレーションでもパフォーマーと踊りながら体験するものが多かったため残念ながら写真はほとんど撮れていません。
 
 
 Showing with works by Alexander Rechberg, Eleonora Siarava und Charlotte Triebus
