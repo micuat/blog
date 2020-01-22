@@ -16,12 +16,9 @@ tonejs: true
   <!-- p5 instance will be created here -->
 </div>
 
-Click to start. Move mouse to change feedback delay. This example uses obsolete Web Audio API (`ScriptProcessorNode`).
+Click to start. Move mouse to change feedback delay. This example uses `ScriptProcessorNode`.
 
 <script>
-// Naoto Hieda
-// https://creativecommons.org/licenses/by-sa/3.0/
-
 // Naoto Hieda
 // https://creativecommons.org/licenses/by-sa/3.0/
 
