@@ -15,7 +15,7 @@ p5: true
   <!-- p5 instance will be created here -->
 </div>
 
-{% highlight java %}
+{% highlight javascript %}
 setup=()=>createCanvas(w=200,w)+pixelDensity(1)
 t=0
 draw=()=>{
