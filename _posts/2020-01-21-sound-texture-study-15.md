@@ -16,14 +16,11 @@ tonejs: true
   <!-- p5 instance will be created here -->
 </div>
 
-Click to start. Move mouse to change feedback delay. This example uses `ScriptProcessorNode`.
+Click to start. Move mouse to change feedback delay. This program uses `ScriptProcessorNode`.
 
 <script>
 // Naoto Hieda
 // https://creativecommons.org/licenses/by-sa/3.0/
-
-// credit
-// Mara@website.com https://www.openprocessing.org/sketch/757327
 
 function midiToFreq(m) {
   let tuning = 440;

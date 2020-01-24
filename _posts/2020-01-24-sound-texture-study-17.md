@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "Sound Texture Study 16"
+title:  "Sound Texture Study 17"
 author: naoto
 categories: [ sketch ]
 tags: [ p5js, sound ]
-image: assets/images/2020-01-22-sound-texture-study-16.png
+image: assets/images/2020-01-24-sound-texture-study-17.png
 description: "A sketch"
 featured: true
 comments: true
@@ -18,15 +18,9 @@ tonejs: true
 
 Click to start. This program uses `ScriptProcessorNode`.
 
-* [My Sketch by Mara@website.com](https://www.openprocessing.org/sketch/757327)
-
-
 <script>
 // Naoto Hieda
 // https://creativecommons.org/licenses/by-sa/3.0/
-
-// credit
-// Mara@website.com https://www.openprocessing.org/sketch/757327
 
 const replayMode = true;
 
@@ -63,8 +57,8 @@ class ColorScheme {
 }
 
 var colorSchemes = [
-  new ColorScheme("https://coolors.co/453823-561f37-39a2ae-55dbcb-75e4b3"),
-  new ColorScheme("https://coolors.co/75e4b3-453823-561f37-39a2ae-55dbcb"),
+  new ColorScheme("https://coolors.co/eccbd9-e1eff6-97d2fb-83bcff-80ffe8"),
+  new ColorScheme("https://coolors.co/80ffe8-eccbd9-e1eff6-97d2fb-83bcff"),
   new ColorScheme("https://coolors.co/000000-808080-ffffff-333333-aaaaaa"),
   new ColorScheme("https://coolors.co/ffffff-808080-000000-333333-aaaaaa"),
 ];
@@ -243,7 +237,7 @@ class ClockWipe {
     this.p = p;
   }
   draw(pg, args) {
-    let p = this.p
+    const p = this.p
     const { col, sides } = args;
     const { tw, bangParam } = args;
     pg.push();
@@ -256,165 +250,67 @@ class ClockWipe {
       pg.fill(255)
     }
     pg.translate(pg.width / 2, pg.height / 2);
+    pg.rotate(-(p.millis() * 0.001 + sides) * Math.PI * 0.25);
     pg.noStroke();
-    let rate = EasingFunctions.easeInOutCubic(tw);
-    let n = 128;
-    let r = pg.width;
+    const rate = EasingFunctions.easeInOutCubic(tw);
+    const n = 128;
+    const r = pg.width;
     pg.beginShape();
     pg.vertex(0, 0);
-    let sign = bangParam % 2 == 0 ? -1 : 1;
+    const sign = bangParam % 2 == 0 ? -1 : 1;
+    // const t = p.millis() * 0.001 * 16;
+    // const N = 16;
+    // for (let i = 0; i <= N; i++) {
+    //   let theta = -Math.PI / 2 + Math.sin(t + i) * 0.3;
+    //   let x = p.map(i, 0, N, 0, r) * Math.cos(theta);
+    //   let y = p.map(i, 0, N, 0, r) * Math.sin(theta);
+    //   pg.vertex(x, y);
+    // }
     for (let i = 0; i <= n; i++) {
       let theta = sign * i / n * Math.PI * 2 * rate - Math.PI / 2;
       let x = r * Math.cos(theta);
       let y = r * Math.sin(theta);
       pg.vertex(x, y);
     }
+    // for (let i = N; i >= 0; i--) {
+    //   let theta = sign * Math.PI * 2 * rate - Math.PI / 2 + Math.sin(t + i) * 0.3;
+    //   let x = p.map(i, 0, N, 0, r) * Math.cos(theta);
+    //   let y = p.map(i, 0, N, 0, r) * Math.sin(theta);
+    //   pg.vertex(x, y);
+    // }
     pg.vertex(0, 0);
     pg.endShape();
   }
 }
 
-class Blobs {
+class ShapeExpandWipe {
   constructor({ p }) {
     this.p = p;
-    this.handle_len_rate = 3;
-    this.maxDistance = 200;
-    this.circlePaths = [];
-    this.connections = [];
-    this.numBlobs = 8;
-
-    this.setup();
   }
-
-  setup() {
-    const p = this.p;
-    this.radius = 120 * 8;
-    //generate circles
-    for (let i = 0; i < this.numBlobs; i++) {
-      this.circlePaths.push({
-        position: p.createVector(p.random(width), p.random(height)),
-        radius: this.radius,//i == 0 ? 120 : p.random(100, 120),
-        vel: p5.Vector.random2D().mult(2)
-      });
-    }
-    this.circlePaths[0].radius = 250 * 0.4;
-  }
-
   draw(pg, args) {
-    const { col, sides } = args;
-    const { tw, bangParam } = args;
-    pg.push();
-    if (tw == undefined) {
-      setColor(pg, 'background', col.bg);
-      setColor(pg, 'fill', col.fg);
-    }
-    else {
-      pg.background(0);
-      pg.fill(255)
-    }
-    // My Sketch by Mara@website.com
-    // https://www.openprocessing.org/sketch/757327
-    const p = this.p;
-    let radius = this.radius;
-    if (tw < 0.5) {
-      radius *= p.map(EasingFunctions.easeInOutCubic(tw * 2), 0, 1, 0, 0.125);
-    }
-    else {
-      radius *= p.map(EasingFunctions.easeInOutCubic(tw * 2 - 1), 0, 1, 0.125, 1);
-    }
-    if (tw == undefined)
-      radius = this.radius / 8;
+    let p = this.p
+    let { tw, bangParam } = args;
+    setColor(pg, 'background', 0);
+    pg.translate(pg.width / 2, pg.height / 2);
+    pg.rotate(p.millis() * 0.001 * Math.PI * 0.25);
     pg.noStroke();
-    this.circlePaths.forEach((circle, index) => {
-      circle.radius = radius;
-    });
-
-    //draw circles
-    this.circlePaths.forEach((circle, index) => {
-      let position = circle.position;
-      position.add(circle.vel);
-      let d = width / 10;
-      if (position.x > width + d) position.x = position.x - (width + d);
-      else if (position.x < -d) position.x = width + d - position.x;
-      if (position.y > height + d) position.y = position.y - (height + d);
-      else if (position.y < -d) position.y = height + d - position.y;
-      pg.ellipse(position.x, position.y, circle.radius, circle.radius)
-    })
-
-    //generate connections
-    this.connections.length = 0;
-    for (let i = 0, l = this.circlePaths.length; i < l; i++) {
-      for (let j = i - 1; j >= 0; j--) {
-        let path = this.metaball(this.circlePaths[i], this.circlePaths[j], 0.5, this.handle_len_rate, this.maxDistance);
-        if (path) {
-          this.connections.push(path);
-        }
-      }
+    setColor(pg, 'fill', 2);
+    let n = bangParam + 3;
+    let r = pg.width * 1.42;
+    if (tw < 0.5) {
+      r *= p.map(EasingFunctions.easeInOutCubic(tw * 2), 0, 1, 0, 0.25);
     }
-
-    //draw connections
-    this.connections.forEach(path => {
-      pg.beginShape();
-      for (let j = 0; j < 4; j++) {
-        if (j == 0) pg.vertex(path.segments[j].x, path.segments[j].y);
-        else if (j % 2 != 0) {
-          pg.vertex(path.segments[(j + 1) % 4].x, path.segments[(j + 1) % 4].y);
-        }
-        if (j % 2 != 0) continue;
-        pg.bezierVertex(
-          path.segments[j].x + path.handles[j].x, path.segments[j].y + path.handles[j].y,
-          path.segments[(j + 1) % 4].x + path.handles[(j + 1) % 4].x, path.segments[(j + 1) % 4].y + path.handles[(j + 1) % 4].y,
-          path.segments[(j + 1) % 4].x, path.segments[(j + 1) % 4].y
-        );
-      }
-      pg.endShape();
-    })
-    pg.pop();
-  }
-
-  metaball(ball1, ball2, v, handle_len_rate, maxDistance) {
-    let p = this.p;
-    let radius1 = ball1.radius / 2;
-    let radius2 = ball2.radius / 2;
-    let center1 = ball1.position;
-    let center2 = ball2.position;
-    let d = center1.dist(center2);
-    let u1 = 0;
-    let u2 = 0;
-    if (d > maxDistance || d <= Math.abs(radius1 - radius2)) {
-      return;
-    } else if (d < radius1 + radius2) {
-      // case circles are overlapping
-      u1 = Math.acos((radius1 * radius1 + d * d - radius2 * radius2) / (2 * radius1 * d));
-      u2 = Math.acos((radius2 * radius2 + d * d - radius1 * radius1) / (2 * radius2 * d));
+    else {
+      r *= p.map(EasingFunctions.easeInOutCubic(tw * 2 - 1), 0, 1, 0.25, 1);
     }
-    let angle1 = Math.atan2(center2.y - center1.y, center2.x - center1.x);
-    let angle2 = Math.acos((radius1 - radius2) / d);
-    let angle1a = angle1 + u1 + (angle2 - u1) * v;
-    let angle1b = angle1 - u1 - (angle2 - u1) * v;
-    let angle2a = angle1 + Math.PI - u2 - (Math.PI - u2 - angle2) * v;
-    let angle2b = angle1 - Math.PI + u2 + (Math.PI - u2 - angle2) * v;
-    let p1a = p5.Vector.add(center1, p5.Vector.fromAngle(angle1a, radius1));
-    let p1b = p5.Vector.add(center1, p5.Vector.fromAngle(angle1b, radius1));
-    let p2a = p5.Vector.add(center2, p5.Vector.fromAngle(angle2a, radius2));
-    let p2b = p5.Vector.add(center2, p5.Vector.fromAngle(angle2b, radius2));
-    // define handle length by the distance between
-    // both ends of the curve to draw
-    let d2 = Math.min(v * handle_len_rate, p.dist(p1a.x, p1a.y, p2a.x, p2a.y) / (radius1 + radius2));
-    // case circles are overlapping:
-    d2 *= Math.min(1, d * 2 / (radius1 + radius2));
-    radius1 *= d2;
-    radius2 *= d2;
-    let path = {
-      segments: [p1a, p2a, p2b, p1b],
-      handles: [
-        p5.Vector.fromAngle(angle1a - Math.PI / 2, radius1),
-        p5.Vector.fromAngle(angle2a + Math.PI / 2, radius2),
-        p5.Vector.fromAngle(angle2b - Math.PI / 2, radius2),
-        p5.Vector.fromAngle(angle1b + Math.PI / 2, radius1)
-      ]
-    };
-    return path;
+    pg.beginShape();
+    for (let i = 0; i <= n; i++) {
+      let theta = i / n * Math.PI * 2 - Math.PI / 2;
+      let x = r * Math.cos(theta);
+      let y = r * Math.sin(theta);
+      pg.vertex(x, y);
+    }
+    pg.endShape(p.CLOSE);
   }
 }
 
@@ -475,8 +371,9 @@ class SquareGrid {
 
 const s = (p) => {
   const wipeDraws = [
-    new Blobs({ p }),
+    // new Blobs({ p }),
     new ClockWipe({ p }),
+    new ShapeExpandWipe({ p }),
   ];
   const solidDraws = [
     // new Blobs({ p }),
@@ -503,27 +400,20 @@ const s = (p) => {
   const history = [];
   const savedHistory = [
     "n",
-    "<<n=>>",
-    "<<<n=>60~>>",
-    "<<<n=>>60~>",
-    "<<<30[=n=>>60~>",
-    "<<10<+2[=n=>>60~>",
-    "<<10<+4m=n=>>60~>",
-    "<<10<+4m=n=>>60~==>",
-    "<<10<+4m=n=-2p>>60~==>",
-    "<<10<+4m=n=-2p>>==60~==>",
-    "<10<<+4m=n=-2p>>==80~==>",
-    "<10<<<+4mn-2p>>>==62~==>",
-    "<10<<<+4mn+2p>>>==70~==>",
-    "<10<<<+4mn+2p>>>==60~==10<+8mn+4p>>",
-    "<10<<+4mn-2p+2p>>==60~=n=>",
-    "<10<<+4m+2p+2p>>=60~=n=>",
-    "<10<<+4m+2p+2p>-8>=60~=n=>",
-    "<10<<+4f-2p+2p>-8>=60~=n=>",
-    "<10<<+4p-2p+2p>-8>=60~=n=>",
-    "<10<<+4p-2p+2p>-8>=60~=f=>",
-    "<10<<+4p-2p+2p>-8>=60~=[=>",
-    "<10<<<+4p+2p+2p>>-8>=60~=[=>"
+    "<<n=n=>>",
+    "<<n=n=>><<<<=>>>><42p=>",
+    "<<n=n=>><<=>><42f=>",
+    "<<n=n=>><<=>><<<42p=+2>>>",
+    "<<n=n=>><<=>><<<42~=+2>>>",
+    "<<n=n=60~>><<=>><<<42~=+2>>>",
+    "<<n=n=60N+2>><<=>><<<42~=+2>>>",
+    "<<n=n=60N+2>><<80m=>><<<42~=+2>>>",
+    "<<n=n=60N+2>><<80m=>><<-2m>><<<42~=+2>>>",
+    "<<n=n=60N+2>><<80m=-2>><<+2m>><<<42~=+2>>>",
+    "<<n=n=60N+2>>80<<m=-2>><<+2m>><<<42~=+2>>>",
+    "<<n=n=60N+2>>80<<m=-2>><<+2m>>42<<<~=+2>>>",
+    "<<n=n=60N+2>>80<<m=-2>><<+2m>>42<<<[=+2>>>",
+    "<<<n=n=60N+2>>80<<m=-2>><<+2m>>42<<<[=+2>n60aa>>>"
   ];
   let curHistory = 0;
 
