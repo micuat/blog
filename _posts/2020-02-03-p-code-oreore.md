@@ -15,7 +15,15 @@ comments: true
 p-code oreore is an experimental chat platform for collective music live-coding. Syntax is based on [p-code](https://github.com/p-code-magazine/p-code) but numbers denote MIDI notes not frequencies, and some features are added.
 
 
-syntax
+Acknowledgements
+--------
+
+This project is a shameless clone of [p-code playground](https://github.com/h4us/p-code-playground) developed by Yosuke Hayashi and Haus.
+
+The chat platform is run by [glitch.com](https://glitch.com/) and is inspired by [pixeljam](http://pixeljam.glitch.me/) by Olivia Jack.
+
+
+Syntax
 --------
 
 | notation | description |
@@ -39,7 +47,7 @@ syntax
 
 `NUMBER` bigger than `120` will be replaced by a random frequency. Any unrecognized character will play white noise. If `<` is not closed, `>` will be automatically added at the end.
 
-examples
+Examples
 --------
 
     10<<<<<<<<<<<<<<<+1~
