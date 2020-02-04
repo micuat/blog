@@ -2,8 +2,8 @@
 layout: post
 title:  "p-code oreore"
 author: naoto
-categories: [ sketch ]
-tags: [ p5js, platform ]
+categories: [ platform ]
+tags: [ p5js, sound ]
 image: assets/images/2020-02-03-p-code-oreore.png
 description: "p-code oreore platform"
 featured: true
