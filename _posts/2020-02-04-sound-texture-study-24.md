@@ -4,7 +4,7 @@ title:  "Sound Texture Study 24"
 author: naoto
 categories: [ sketch ]
 tags: [ p5js, sound ]
-image: assets/images/2020-02-03-sound-texture-study-24.png
+image: assets/images/2020-02-04-sound-texture-study-24.png
 description: "A sketch"
 featured: true
 comments: true
