@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "Sound Texture Study 27"
+title:  "Sound Texture Study 28"
 author: naoto
 categories: [ sketch ]
 tags: [ p5js, sound ]
-image: assets/images/2020-02-08-sound-texture-study-27.png
+image: assets/images/2020-02-09-sound-texture-study-28.png
 description: "A sketch"
 featured: true
 comments: true
@@ -92,7 +92,7 @@ class ColorScheme {
 }
 
 var colorSchemes = [
-  new ColorScheme("https://coolors.co/c200fb-ec0868-fc2f00-ec7d10-ffbc0a"),
+  new ColorScheme("https://coolors.co/eccbd9-e1eff6-97d2fb-83bcff-80ffe8"),
   new ColorScheme("https://coolors.co/80ffe8-eccbd9-e1eff6-97d2fb-83bcff"),
   new ColorScheme("https://coolors.co/ff0000-00ff00-0000ff-00000000-aaaaaa"),
   new ColorScheme("https://coolors.co/ffffff-808080-000000-333333-aaaaaa"),
@@ -215,7 +215,7 @@ varying vec2 vTexCoord;
 
 void main( void ) {
   vec2 uv = gl_FragCoord.xy / resolution.xy;//vTexCoord;
-  // uv.y = 1.0 - uv.y;
+  uv.y = 1.0 - uv.y;
 
   vec4 colR = texture2D(ppixelsR, uv);
   vec4 colG = texture2D(ppixelsG, uv);
@@ -470,6 +470,131 @@ class Cube {
   }
 }
 
+// reference https://yoppa.org/proga10/1271.html
+class Particle {
+  constructor({ p, x, y, r }) {
+    this.p = p;
+    this.x = x;
+    this.y = y;
+    this.org = { x, y };
+    this.v = { x: 0, y: 0 };
+    this.r = r;
+    this.last = { x, y };
+    this.springLength = width * 0.02;
+    this.stiffness = 0.2;
+    this.damping = 0.7;
+    this.mass = 1;
+  }
+  springForce(a, neighbor) {
+    const p = this.p;
+    const l = p.dist(this.last.x, this.last.y, neighbor.last.x, neighbor.last.y);
+    const f = this.stiffness * (this.springLength - l);
+    const A = f / this.mass;
+    a.x += A * (this.x - neighbor.x) / l;
+    a.y += A * (this.y - neighbor.y) / l;
+  }
+
+  preDraw({ distX, distY }) {
+    const p = this.p;
+    const a = { x: 0, y: 0 };
+    this.springForce(a, this.next);
+    this.springForce(a, this.prev);
+    {
+      const l = 1 + p.dist(this.last.x, this.last.y, distX, distY);
+      const f = 100 / l;
+      const A = f / this.mass;
+      a.x += A * (this.x - distX) / l;
+      a.y += A * (this.y - distY) / l;
+    }
+    {
+      const l = 1 + p.dist(this.last.x, this.last.y, this.org.x, this.org.y);
+      const f = -l * 0.02;
+      const A = f / this.mass;
+      a.x += A * (this.x - this.org.x) / l;
+      a.y += A * (this.y - this.org.y) / l;
+    }
+    this.v.x = this.damping * this.v.x + a.x;
+    this.v.y = this.damping * this.v.y + a.y;
+    this.x += this.v.x;
+    this.y += this.v.y;
+    if (this.x < 0) this.x = 0;
+    if (this.y < 0) this.y = 0;
+    if (this.x > width) this.x = width;
+    if (this.y > height) this.y = height;
+  }
+  draw() {
+  }
+  postDraw() {
+    this.last = { x: this.x, y: this.y };
+  }
+}
+
+const particles = [];
+
+class Chain {
+  constructor({ p }) {
+    this.p = p;
+    this.particles = [];
+    this.isWipe = true;
+    const N = 80;
+    for (let i = 0; i < N; i++) {
+      const radius = width * 0.3;
+      const theta = i / N * 2 * Math.PI;
+      const x = radius * Math.cos(theta) + width / 2;
+      const y = radius * Math.sin(theta) + height / 2;
+      const r = width * 0.02;
+      this.particles.push(new Particle({ p, x, y, r }));
+    }
+    for (let i = 0; i < N; i++) {
+      this.particles[i].next = this.particles[(i + 1) % N];
+      this.particles[i].prev = this.particles[(i - 1 + N) % N];
+    }
+  }
+
+  draw(pg, args) {
+    const p = this.p
+    const { col, sides, rand, tw, bangParam } = args;
+    const t = p.millis() * 0.001;
+    const particles = this.particles;
+    let tween = 0;
+    if (tw <= 0.5) {
+      tween = EasingFunctions.easeOutCubic(tw * 2);
+    }
+    else {
+      tween = p.lerp(1, 100, EasingFunctions.easeInCubic(p.map(tw, 0.5, 1, 0, 1)));
+    }
+
+    pg.translate(-width / 2, -height / 2);
+    setColor(pg, 'background', col.bg);
+    pg.noStroke();
+    const th = p.noise(t * 2) * Math.PI * 4;
+    const distX = width * 0.3 * Math.cos(th) + width / 2;
+    const distY = width * 0.3 * Math.sin(th) + height / 2;
+    for (const particle of particles) {
+      this.springLength = width * p.lerp(0.01, 0.1, rand[0]);
+      this.stiffness = p.lerp(0.1, 0.5, rand[1]);
+      particle.preDraw({ distX, distY });
+    }
+    let count = 0;
+    for (const particle of particles) {
+      let r = p.dist(particle.last.x, particle.last.y, particle.next.x, particle.next.y);
+      if (count != particles.length - 1 && col.mg != undefined) {
+        setColor(pg, 'fill', col.mg);
+        if (tw < 0.5) r *= tween;
+      }
+      else {
+        setColor(pg, 'fill', col.fg);
+        r *= tween;
+      }
+      // r *= tween;
+      pg.ellipse(particle.x, particle.y, r, r);
+      count++;
+    }
+    for (const particle of particles) {
+      particle.postDraw();
+    }
+  }
+}
 
 class Osc {
   constructor({ p }) {
@@ -630,13 +755,17 @@ class SquareGrid {
 
 const s = (p) => {
   const wipeDraws = [
-    new Cube({ p }),
+    new Chain({ p }),
+    // new Cube({ p }),
     // new ClockWipe({ p }),
     // new ShapeExpandWipe({ p }),
     // new ShapeExpandReturn({ p }),
   ];
   let solidDraws = [
-    new Osc({ p }),
+    // new Osc({ p }),
+    // new Osc({ p }),
+    // new Osc({ p }),
+    // new Osc({ p }),
     new SquareGrid({ p }),
     new CircleGridMove({ p }),
     new SquareGridRotate({ p }),
@@ -661,7 +790,7 @@ const s = (p) => {
   let diffDrawer;
 
   const history = [];
-  const savedHistory = ["d<<<<nn==>>>>", "d<<<<mm==>>>>", "d10<<<+3<mm==>>>>", "d10<<<+3<ff==>>>>", "d10<<<+3<f=m=>>>>", "d10<<<+3<f=p=>>>>", "d10<<<+3<[=p=>>>>", "d10<<<+5<[=p=>>>>", "d<<10<*2<[=p=>>>>", "d<10<<*2<[=p=>>>>"];
+  const savedHistory = ["<<<n=n=>>>", "d60<<<+1m=n=>>>", "d60<<+1m=~=~=>>", "d60<<+1m=~=+1~=>>", "b60<<+1m=~=+1~=>>", "d60<<+1m=~=+1~=>><<[>>", "d60<<+1m=~=+1~=>>100<<[>>"];
   let curHistory = 0;
 
   p.setup = () => {
@@ -777,6 +906,7 @@ const s = (p) => {
 
     p.background(0);
     turn.draw({ pg: p });
+    // p.image(turn.pgMask, -width / 2, -height / 2, width, height);
   }
 
   let isSetup = false;
