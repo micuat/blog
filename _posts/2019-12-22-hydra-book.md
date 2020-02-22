@@ -37,6 +37,7 @@ Table of Contents
   * [Gradient](#gradient)
   * [Oscillator](#oscillator-1)
   * [Color Operations](#color-operations)
+  * [Color Remapping](#color-remapping)
   * [Feedback](#feedback)
 * [Arithmetic](#arithmetic)
   * [Normalization](#normalization)
@@ -415,6 +416,31 @@ osc(200,0,1).rotate(1).layer(f().saturate(0).luma(0.2,0.2).color(0,0,0,1)).layer
 {% endhighlight %}
 
 ![luma-shadow]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-luma-shadow.png)
+
+Color Remapping
+--------
+
+The above examples give "video synthesizer" like colors. But what if you want to use colors from a palette, for example, specified by RGB hexadecimal numbers? In the next example, a grayscale texture is re-colored by a palette taken from [coolors.co](https://coolors.co).
+
+{% highlight javascript %}
+DD=0.01
+b=(o,u,i,y,z)=>o().add(solid(1,1,1),DD).thresh(i*0.2*(z-y)+y,0).luma(0.5,0).color(c(u,i,0),c(u,i,1),c(u,i,2))
+c=(u,i,j)=>{
+  let cc = u.split("/"), cs = cc[cc.length - 1].split("-")
+  return parseInt("0x" + cs[i].substring(2*j, 2+2*j))/255
+}
+colorize=(x,u,y=0,z=1)=>b(x,u,0,y,z).layer(b(x,u,1,y,z)).layer(b(x,u,2,y,z)).layer(b(x,u,3,y,z)).layer(b(x,u,4,y,z))
+
+url='https://coolors.co/bbdef0-f08700-f49f0a-efca08-00a6a6'
+func=()=>osc(20,0,0).modulate(noise(4,0))
+colorize(func,url).out()
+{% endhighlight %}
+
+![color remapping]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-color-remapping.png)
+
+While the example code is long, in a nutshell, the input grayscale texture defined by `func` is separated into 5 layers based on the intensity, and each layer is recolored by the hexadecimal number specified in coolors URL. The GIF animation below shows each layer recolored for explanation. At the end, these layers are overlaid on top of each other to produce the final texture (above).
+
+![color remapping animation]({{ site.baseurl }}/assets/images/2019-12-22-hydra-book-color-remapping-animation.gif)
 
 Feedback
 --------
