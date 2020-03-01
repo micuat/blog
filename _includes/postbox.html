@@ -1,7 +1,11 @@
 <!-- begin post -->
 {% assign author = site.authors[post.author] %}
 
+{% if fullwidth == true %}
+<div class="mb-30px card-group">
+{% else %}
 <div class="col-lg-4 col-md-6 mb-30px card-group">
+{% endif %}
     <div class="card h-100">
         <div class="maxthumb">
             <a href="{{ site.baseurl }}{{ post.url }}">
