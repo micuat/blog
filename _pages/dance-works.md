@@ -40,3 +40,19 @@ Requires video projection and a motion sensor (webcam).
 
 ![Walk 4 Me installation]({{ site.baseurl }}/assets/images/2020-03-01-node-proposal-walk4me.jpg)
 *A visitor interacting with Walk 4 Me installation during the creation.*
+
+
+Pathfinder Workshop
+--------
+
+![Workshop at NOVA festival]({{ site.baseurl }}/assets/images/2020-03-01-node-proposal-pathfinder-nova.jpg)
+*Workshop at NOVA festival with Mio Loclair. Photo: Andrei Gîndac*
+
+Pathfinder, a project started by Mio Loclair, *aims to contribute to the creative processes of choreographic development, instead of serving as data management and abstraction* ([christianmioloclair.com](https://christianmioloclair.com/pathfinder)). I have been maintaining the Pathfinder code and giving workshops with Loclair and Raphael Hillebrand.
+
+The past workshops are a one-day workshop at NOVA Festival (Bucharest, Romania) with Mio Loclair, and a series of workshops for students and alumni at Hong Kong Academy for Performing Arts (Hong Kong) with Raphael Hillebrand. My report of the Pathfinder workshop at NOVA Festival can be found [here](https://medium.com/@naoto_hieda/nova-choreographic-coding-lab-pathfinder-f14fc1f81deb).
+
+Expected number of participants: 10-20
+
+![Students dancing with Pathfinder]({{ site.baseurl }}/assets/images/2020-03-01-node-proposal-pathfinder-hkapa.jpg)
+*HKAPA students dancing with Pathfinder. Photo: Wendy Chu*
