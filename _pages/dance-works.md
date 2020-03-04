@@ -22,8 +22,8 @@ Virtual Exhibition (working title, a solo performance by Naoto Hieda) is a hybri
 Work in progress, performed on Feb 5, 2020 at Phil Collins' seminar showing at Academy of Media Arts Cologne.  
 Online exhibition can be accessed [here](https://naotohieda.com/ve/003) (Chrome only).
 
-30 min; requires video projection, 2-channel audio and Internet connection.
-
+30 min; requires video projection, 2-channel audio and Internet connection.  
+To be premiered at NL_CL #2 Flesh (the Hague, Netherlands) in May 2020.
 
 Walk 4 Me (installation)
 --------
