@@ -8,6 +8,7 @@ image: assets/images/2020-03-08-tweet-p5-particle-study-23.gif
 description: "A sketch"
 featured: true
 comments: true
+p5: true
 ---
 
 <div id = "p5sketch">
