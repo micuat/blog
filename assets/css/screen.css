@@ -942,3 +942,7 @@ twitter-widget + p > em {
     margin-right: auto;
     display: block;
 }
+
+audio {
+    width: 100%;
+}
