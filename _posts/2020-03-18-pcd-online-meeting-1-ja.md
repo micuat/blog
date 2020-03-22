@@ -3,9 +3,9 @@ layout: post
 title:  "オンライン版 Processing Community Day ミーティング 1"
 author: naoto
 categories: [ report ]
-tags: [ essay ]
+tags: [ essay, japanese ]
 image: assets/images/2020-03-18-pcd-online-meeting-1-en.png
-description: "an essay"
+description: "レポート"
 featured: true
 comments: true
 ---
