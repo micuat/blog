@@ -4,7 +4,7 @@ title:  "vvvv オフ会（オンライン）25"
 author: naoto
 categories: [ report ]
 tags: [ essay, japanese ]
-image: assets/images/2020-03-22-vvvv-jp-meeting-25-ja.png
+image: assets/images/2020-03-22-vvvv-jp-meeting-25-ja.jpg
 description: "レポート"
 featured: true
 comments: true
