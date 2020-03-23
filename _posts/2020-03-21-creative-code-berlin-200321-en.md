@@ -21,7 +21,7 @@ We started with an introduction round followed by a brainstorming session. Usual
   <!-- p5 instance will be created here -->
 </div>
 
-Then I spent the afternoon to create a VJ framework - which I just started working on, and I hope it will be a long-term project that will be performed someday. You can see the sketch [here]({{ site.baseurl }}/2020-03-21-video-jockeying-2-ja) (the article is in Japanese, but there is a preview of the sketch).
+Then I spent the afternoon to create a VJ framework - which I just started working on, and I hope it will be a long-term project that will be performed someday. You can see the sketch [here]({{ site.baseurl }}/video-jockeying-2-ja) (the article is in Japanese, but there is a preview of the sketch).
 
 There was also a sub-group discussing OpenRNDR, led by aBe and Kazik. OpenRNDR is a framework based on Kotlin for generative graphics and is gaining more and more attention from creative coders.
 
