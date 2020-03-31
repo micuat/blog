@@ -3,7 +3,7 @@ layout: post
 title:  "VJ について 6"
 author: naoto
 categories: [ sketch ]
-tags: [ p5js, sound, essay, japanese ]
+tags: [ p5js, sound, japanese ]
 image: assets/images/2020-03-25-video-jockeying-6-ja.png
 description: "スケッチ"
 featured: true

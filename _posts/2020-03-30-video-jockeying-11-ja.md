@@ -3,14 +3,14 @@ layout: post
 title:  "VJ について 11"
 author: naoto
 categories: [ sketch ]
-tags: [ p5js, sound, essay, japanese ]
+tags: [ p5js, glitch, japanese ]
 image: assets/images/2020-03-30-video-jockeying-11-ja.png
 description: "スケッチ"
 featured: true
 comments: true
 ---
 
-<div class="glitch-embed-wrap" style="height: 420px; width: 100%;">
+<div class="glitch-embed-wrap" style="height: 800px; width: 100%;">
   <iframe
     src="https://glitch.com/embed/#!/embed/road-to-vj-011?path=public/sketch.js&previewSize=100"
     title="road-to-vj-011 on Glitch"
