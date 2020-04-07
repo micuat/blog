@@ -26,7 +26,7 @@ Marie works on creative "games", and she shared an idea of zoom bombing, but in 
 
 Aarón shared us an idea of using the quarantine time to learn something new, for example, live coding for him. Not only to learn by himself, he spends time with friends to teach each other. Nevertheless, the important lesson is not to make the quarantine too productive.
 
-Stig teaches Processing to design students. He shared how to motivate design students to learn programming and also practical tips such as tweak mode in Processing to help students understand programming in an intuitive way. You can find more in [his video on Facebook](https://www.facebook.com/stixan/videos/10158060811633550)
+Stig teaches Processing to design students. He shared how to motivate design students to learn programming and also practical tips such as tweak mode in Processing to help students understand programming in an intuitive way. You can find more in [his video on Facebook](https://www.facebook.com/stixan/videos/10158060811633550).
 
 <div class="youtube-container">
 <iframe class="youtube-video" width="560" height="315" src="https://www.youtube.com/embed/sBcnFqYihWw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
