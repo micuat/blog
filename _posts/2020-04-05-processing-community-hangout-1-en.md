@@ -24,6 +24,8 @@ Art Simon, HS Computer Science Teacher, shared [his curriculum](https://apcslowe
 
 Marie works on creative "games", and she shared an idea of zoom bombing, but in a creative way rather than spamming conferences. She already has ideas such as time keepers and performances, and she is open for collaborators so please check out [her website](https://marieflanagan.com/call-zb/).
 
+Aarón shared us an idea of using the quarantine time to learn something new, for example, live coding for him. Not only to learn by himself, he spends time with friends to teach each other. Nevertheless, the important lesson is not to make the quarantine too productive.
+
 Stig teaches Processing to design students. He shared how to motivate design students to learn programming and also practical tips such as tweak mode in Processing to help students understand programming in an intuitive way. You can find more in [his video on Facebook](https://www.facebook.com/stixan/videos/10158060811633550)
 
 <div class="youtube-container">
