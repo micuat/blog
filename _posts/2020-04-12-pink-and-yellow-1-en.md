@@ -14,8 +14,8 @@ comments: true
 
 Participants are invited to share photos with the artist, and she will post photos after the weekend on her Instagram account. The recipes are not only visually interesting, but it is a good opportunity to try ingredients that we might not normally use (in a supermarket I had to spend time to search for tahini, which is for the sauce). As we have more time at home and thus more time for cooking, her recipes definitely add more repertoire to your recipe book.
 
-![spieced and baked cauliflower]({{ site.baseurl }}/assets/images/2020-04-12-pink-and-yellow-1-en-cauliflower.jpg)
-*spieced and baked cauliflower*
+![spiced and baked cauliflower]({{ site.baseurl }}/assets/images/2020-04-12-pink-and-yellow-1-en-cauliflower.jpg)
+*spiced and baked cauliflower*
 
 ![cauliflower served with beetroot sauce]({{ site.baseurl }}/assets/images/2020-04-12-pink-and-yellow-1-en.jpg)
 *cauliflower served with beetroot sauce*
