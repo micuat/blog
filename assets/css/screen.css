@@ -946,3 +946,8 @@ twitter-widget + p > em {
 audio {
     width: 100%;
 }
+
+#threesketch {
+    width: 100%;
+    height: 400px;
+}

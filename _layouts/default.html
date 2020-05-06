@@ -30,7 +30,10 @@
 {% endif %}
 
 {% if page.threejs %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/85/three.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/85/three.min.js"></script> -->
+<script type="module" src="{{ site.baseurl }}/assets/js/three.min.js"></script>
+<!-- <script src="{{ site.baseurl }}/assets/js/three.module.js"></script>
+<script src="{{ site.baseurl }}/assets/js/GLTFLoader.js"></script> -->
 {% endif %}
 
 </head>
