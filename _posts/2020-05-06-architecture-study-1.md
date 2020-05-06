@@ -3,7 +3,7 @@ layout: post
 title:  "Architecture Study 1"
 author: naoto
 categories: [ sketch ]
-tags: [ p5js, tinysketch ]
+tags: [ threejs, blender, gltf ]
 image: assets/images/2020-05-06-architecture-study-1.png
 description: "A sketch"
 featured: true
