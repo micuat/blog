@@ -55,3 +55,5 @@ After the inspiring talks, [Ayato](https://twitter.com/dn0t_) proposed to make a
 *Ayato proposing Japanese Processing Zine*
 
 We had more than 100 registrations for the live-streaming and we are glad to hear feedback that some people are interested in starting Processing and p5.js. We would like to continue the Japanese hangout every month or every other month; please follow [PCD_Tokyo](https://twitter.com/PCD_Tokyo) for the news about Processing Community Japan and [ProcessingOrg](https://twitter.com/ProcessingOrg) for the global hangouts. As an organizer of the Japanese community and worldwide community, in the next hangouts, I would like to work closely with each other to create synergy across different cultures.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/QnjdU-YUKSU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
