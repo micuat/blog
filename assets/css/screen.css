@@ -929,7 +929,7 @@ twitter-widget + p > em {
     padding-bottom: 56.25%;
 }
 
-.youtube-video {
+.youtube-video, #twitch-embed > iframe {
     position: absolute;
     top: 0;
     left: 0;
