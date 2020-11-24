@@ -2,7 +2,7 @@
 layout: post
 title:  "Choreographic Coding Lab Online at NODE20"
 author: naoto
-categories: [ report ]
+categories: [ project, report ]
 tags: [ essay ]
 image: assets/images/2020-10-08-ccl-online.jpg
 description: "a report of CCLOnline at NODE20"

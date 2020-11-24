@@ -2,7 +2,7 @@
 layout: post
 title:  "Processing Community Hangout 2"
 author: naoto
-categories: [ report ]
+categories: [ project, report ]
 tags: [ essay ]
 image: assets/images/2020-05-09-processing-community-hangout-2-en.png
 description: "a report"
