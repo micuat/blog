@@ -2,7 +2,7 @@
 layout: post
 title:  "Processing Community Day Tokyo 2020"
 author: naoto
-categories: [ report ]
+categories: [ project, report ]
 tags: [ essay ]
 image: assets/images/2020-02-01-processing-community-day-tokyo-2020.png
 description: "Report of Processing Community Day Tokyo"

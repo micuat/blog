@@ -2,8 +2,8 @@
 layout: post
 title:  "Best Practices in Contemporary Dance"
 author: naoto
-categories: [ report ]
-tags: [ essay ]
+categories: [ project, report ]
+tags: [ performance ]
 image: assets/images/2020-08-01-best-practices.jpg
 description: "a report"
 featured: true
