@@ -167,4 +167,11 @@ comments: true
 
 * [ダニエル・シフマン](https://twitter.com/shiffman/)
 
+スポンサー
+
+* [真鍋大度 (Rhizomatiks)](http://daito.ws/)
+* [MIKIKO (Elevenplay)](https://elevenplay.net/)
+* [OpenProcessing](https://openprocessing.org)
+
+
 そしてチケットご購入いただいたみなさま、デイリーコーディングに参加いただいたりギャラリーに投稿いただいたみなさま、配信やワークショップご視聴いただいたみなさまありがとうございました。今後も Processing Community Japan として年一回の PCD および各種オンライン企画を続けていきたいと思います。
