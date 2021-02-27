@@ -10,7 +10,7 @@ featured: true
 comments: true
 ---
 
-2021年2月20日と21日に Processing Community Day Japan 2021 を開催しました。[2019年]({{ site.basurl }}/processing-community-day-tokyo-2019/)と[2020年]({{ site.basurl }}/processing-community-day-tokyo-2020-ja/)は東京の名を冠して Yahoo! LODGE にて開催しましたが、今回はオンラインであるため日本のコミュニティ全体が参加できるようリブランディングしました。今回も運営の目線からイベントを振り返りたいと思います。
+2021年2月20日と21日に Processing Community Day Japan 2021 を開催しました。[2019年]({{ site.baseurl }}/processing-community-day-tokyo-2019/)と[2020年]({{ site.baseurl }}/processing-community-day-tokyo-2020-ja/)は東京の名を冠して Yahoo! LODGE にて開催しましたが、今回はオンラインであるため日本のコミュニティ全体が参加できるようリブランディングしました。今回も運営の目線からイベントを振り返りたいと思います。
 
 ![]({{ site.baseurl }}/assets/images/2021-02-20-processing-community-day-japan-2021-sponsors.png)
 *真鍋大度様、 MIKIKO 様、 OpenProcessing 様にスポンサーいただきました*

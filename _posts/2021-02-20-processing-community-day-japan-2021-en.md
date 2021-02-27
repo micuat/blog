@@ -10,7 +10,7 @@ featured: true
 comments: true
 ---
 
-Processing Community Day Japan was held on February 20th and 21st, 2021. While the last 2 events ([2019]({{ site.basurl }}/processing-community-day-tokyo-2019/) and [2020]({{ site.basurl }}/processing-community-day-tokyo-2020-en/)) were named PCD Tokyo and held at Yahoo! LODGE in Tokyo, we rebranded it as PCD Japan to be an online and more inclusive event. I would like to do a recap from the perspective of an organzier.
+Processing Community Day Japan was held on February 20th and 21st, 2021. While the last 2 events ([2019]({{ site.baseurl }}/processing-community-day-tokyo-2019/) and [2020]({{ site.baseurl }}/processing-community-day-tokyo-2020-en/)) were named PCD Tokyo and held at Yahoo! LODGE in Tokyo, we rebranded it as PCD Japan to be an online and more inclusive event. I would like to do a recap from the perspective of an organzier.
 
 ![]({{ site.baseurl }}/assets/images/2021-02-20-processing-community-day-japan-2021-sponsors.png)
 *Our generous sponsors: Daito Manabe, MIKIKO and OpenProcessing*
