@@ -2,7 +2,7 @@
 layout: post
 title:  "For code that breaks on the stage"
 author: naoto
-categories: [ project, report ]
+categories: [ report ]
 tags: [ essay ]
 image: assets/images/2021-03-21-producing-with-code.jpg
 description: "tips"
