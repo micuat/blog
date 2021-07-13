@@ -22,6 +22,8 @@ Another aspect of the process is a “[chat](https://bestchat.glitch.me/)”, a 
 
 ![](https://img.glitches.me/images/2021/07/06/vlcsnap-2021-07-06-21h16m27s663.png)
 
+(edit: 2021-07-13)
+
 ## Version 2020-08-01
 
 ![naoto in blue, overlaied on jorge]({{site.baseurl}}/assets/images/2020-08-01-best-practices.jpg)
