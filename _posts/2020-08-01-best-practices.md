@@ -4,13 +4,15 @@ title:  "Best Practices in Contemporary Dance"
 author: naoto
 categories: [ project, report ]
 tags: [ performance ]
-image: assets/images/2021-05-30-best-practices.png
+image: assets/images/2021-05-13-best-practices.png
 description: "a report"
 featured: true
 comments: true
 ---
 
 ## \#bestpracticesincontemporarydance
+
+**Article on [CreativeApplications.Net](https://www.creativeapplications.net/member-submissions/best-practices-in-contemporary-dance/)**
 
 [Jorge Guevara](https://jorgeguevara.myportfolio.com/best-practices-in-contemporary-dance) and Naoto Hieda met over the internet as part of a series of meetups that Naoto organized during lockdown in April 2020, which turned into focused sessions called “[Best Practices in Contemporary Dance](https://best-practices.glitch.me/)”. Since then, on a weekly basis, Naoto Hieda in Cologne and Jorge Guevara in Brussels meet online to “practice” for an hour. We stream, distort and alter the videos of ourselves and each other both using commercial and/or open-source software to blend our bodies in the “pixel space”. We do not define what tools and components are to be used, and the practice might include spontaneous reading, writing, eating or body painting. The project is not intended to produce a performance; the practice itself is the outcome and the objective is to create a fluid, queer form of conversation between technology and bodies.
 
